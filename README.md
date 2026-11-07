@@ -22,9 +22,12 @@ Marketing landing plus a fully working app interface: dashboard with charts, tra
 
 **Highlights:** interactive dashboard · charts · transactions & budgets · working demo state
 
-## How to view
+## Live demos
 
-No build step needed — clone the repo and open any `.html` file in a browser.
+• Hub: https://mazafaka047.github.io/my-html-site/
+• ZERNO - https://mazafaka047.github.io/my-html-site/кофейня.html 
+• SVITANOK — https://mazafaka047.github.io/my-html-site/отель.html
+• FINLAD — https://mazafaka047.github.io/my-html-site/управление%20финансами.html
 
 ## Tech
 
