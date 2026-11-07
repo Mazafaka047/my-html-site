@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dmytro Viktorovych — Hand-Coded Web Projects</title>
+<meta name="description" content="Three hand-coded websites (HTML, CSS, JavaScript) — portfolio projects by Dmytro Viktorovych.">
+<style>
+  :root{
+    --bg:#FAFAF8; --ink:#15151F; --soft:rgba(21,21,31,.62); --line:#E7E7E2;
+    --accent:#2E2EB9; --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  header{padding:72px 0 40px}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  h1{font-size:clamp(34px,6vw,56px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:14px 0 12px}
+  .sub{color:var(--soft);font-size:17px;max-width:560px}
+  .sub b{color:var(--ink);font-weight:600}
+  main{padding-bottom:24px}
+  .card{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 30px;margin:16px 0;text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:0 18px 38px -24px rgba(21,21,31,.25);border-color:rgba(46,46,185,.4)}
+  .card-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .card-top h2{font-size:22px;font-weight:700;letter-spacing:.02em}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+  .card p{color:var(--soft);font-size:15px;margin-top:10px;max-width:640px}
+  .feat{font-size:13px;color:var(--ink);margin-top:12px;letter-spacing:.01em}
+  .open{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.04em}
+  .note{font-size:13px;color:var(--soft);border-top:1px solid var(--line);padding:20px 0 8px;margin-top:28px}
+  footer{padding:28px 0 64px}
+  footer .line{font-size:14px;color:var(--soft)}
+  footer .line b{color:var(--ink);font-weight:600}
+  footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+  @media (max-width:560px){header{padding:52px 0 28px}.card{padding:22px 20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Portfolio projects · Ukraine · available remotely</div>
+    <h1>Dmytro Viktorovych</h1>
+    <p class="sub">Three <b>hand-coded websites</b> — HTML, CSS and JavaScript, no frameworks. Every layout, cart, filter and widget below is written by hand and ships as working code.</p>
+  </header>
+  <main>
+    <a class="card" href="кофейня.html">
+      <div class="card-top"><h2>ZERNO</h2><span class="tag">Coffee shop &amp; roastery</span></div>
+      <p>Multi-page e-commerce concept: menu, shop with filters, cart &amp; checkout, loyalty dashboard, blog and events. Custom CSS design system with branded SVG fallback illustrations.</p>
+      <div class="feat">E-commerce · filters · cart &amp; checkout · design system</div>
+      <span class="open">Open site →</span>
+    </a>
+    <a class="card" href="отель.html">
+      <div class="card-top"><h2>SVITANOK</h2><span class="tag">Boutique hotel, Kyiv</span></div>
+      <p>Boutique hotel website: booking widget with date picking, room catalog with live pricing, services, masonry gallery with lightbox, guest reviews slider and personal account UI.</p>
+      <div class="feat">Booking flow · room catalog · gallery + lightbox · reviews slider</div>
+      <span class="open">Open site →</span>
+    </a>
+    <a class="card" href="управление%20финансами.html">
+      <div class="card-top"><h2>FINLAD</h2><span class="tag">Personal finance manager</span></div>
+      <p>Marketing landing plus a fully working app interface: dashboard with charts, transactions, budgets, goals and settings — a complete interactive demo.</p>
+      <div class="feat">Dashboard · charts · transactions &amp; budgets · working demo</div>
+      <span class="open">Open site →</span>
+    </a>
+    <div class="note">All three are self-initiated portfolio projects, not client work. Source code lives in this repository.</div>
+  </main>
+  <footer>
+    <p class="line"><b>Contact:</b> <a href="mailto:dmkrestovnikov@gmail.com">dmkrestovnikov@gmail.com</a> · <a href="https://t.me/mazafaka047">Telegram</a> · <a href="https://tiktok.com/@mazafaka047">TikTok</a> · <a href="https://github.com/Mazafaka047">GitHub</a></p>
+  </footer>
+</div>
+</body>
+</html>
