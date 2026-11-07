@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Світанок — бутик-готель у Києві</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ============ Design tokens ============ */
+:root{
+  --bg:#FAF9F6; --bg-alt:#F3F0E9; --ink:#33322E; --ink-soft:#6E6961;
+  --sage:#6E7A57; --sage-dark:#59653F; --gold:#B08C4F; --gold-l:#C9A468;
+  --line:#E6E1D6; --dark:#2A2925; --cream:#F4F1EA; --error:#B4573F;
+  --r:8px; --rs:4px;
+  --sh-s:0 2px 12px rgba(42,41,37,.07);
+  --sh-m:0 18px 44px rgba(42,41,37,.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Montserrat','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{font:400 16px/1.7 var(--sans);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;background:none;border:0;color:inherit}
+::selection{background:rgba(176,140,79,.28)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.ph{filter:brightness(1.01) saturate(.96)} /* легка тонування для єдності відтінків */
+
+.container{width:min(1180px,100% - 48px);margin-inline:auto}
+.section{padding:110px 0}
+
+/* section heading pattern */
+.label{display:inline-flex;align-items:center;gap:14px;font:600 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.label::before{content:"";width:36px;height:1px;background:var(--gold)}
+.label.center{justify-content:center}
+.label.center::after{content:"";width:36px;height:1px;background:var(--gold)}
+.sec-title{font:500 clamp(30px,4vw,44px)/1.18 var(--serif);margin:16px 0 14px;letter-spacing:-.01em}
+.sec-title em{font-style:italic;color:var(--gold)}
+.sec-lead{color:var(--ink-soft);max-width:520px;font-size:15.5px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:48px;flex-wrap:wrap}
+.sec-head .sec-lead{max-width:380px;text-align:right}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 12.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:15px 26px;border-radius:var(--rs);border:1px solid transparent;transition:.25s ease;white-space:nowrap}
+.btn-primary{background:var(--sage);color:#fff}
+.btn-primary:hover{background:var(--sage-dark);transform:translateY(-1px);box-shadow:0 10px 22px rgba(89,101,63,.3)}
+.btn-outline{border-color:var(--sage);color:var(--sage)}
+.btn-outline:hover{background:var(--sage);color:#fff}
+.btn svg{width:15px;height:15px}
+
+/* ============ Header ============ */
+.header{position:fixed;inset:0 0 auto;z-index:100;--hd:#FAF9F6;--nav-ac:var(--gold-l);transition:background .35s,box-shadow .35s}
+.header.scrolled{--hd:var(--ink);--nav-ac:var(--gold);background:rgba(250,249,246,.93);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line),0 12px 32px rgba(42,41,37,.07)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:22px;height:78px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--hd);transition:color .35s}
+.logo svg{width:36px;height:36px;color:var(--gold-l)}
+.header.scrolled .logo svg{color:var(--gold)}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.logo-text b{font:600 18px var(--serif);letter-spacing:.16em}
+.logo-text small{font:500 8.5px var(--sans);letter-spacing:.32em;text-transform:uppercase;opacity:.65}
+.main-nav{display:flex;gap:34px}
+.main-nav a{position:relative;font:600 11.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--hd);opacity:.85;padding:6px 1px;transition:.25s}
+.main-nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--nav-ac);transition:width .3s}
+.main-nav a:hover{opacity:1}
+.main-nav a:hover::after,.main-nav a.active::after{width:100%}
+.main-nav a.active{color:var(--nav-ac);opacity:1}
+.header-actions{display:flex;align-items:center;gap:20px}
+.btn-book{padding:13px 22px}
+
+/* user menu (demo logged-in state) */
+.user-menu{position:relative}
+.user-btn{display:flex;align-items:center;gap:10px;padding:5px;border-radius:99px;transition:.25s}
+.user-btn:hover{background:rgba(176,140,79,.14)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;font:600 11.5px var(--sans);letter-spacing:.05em;flex:none}
+.user-name{font:500 13.5px var(--sans);color:var(--hd);transition:color .35s}
+.chev{width:11px;height:11px;color:var(--hd);transition:transform .3s,color .35s}
+.user-btn.open .chev{transform:rotate(180deg)}
+.dropdown{position:absolute;top:calc(100% + 14px);right:0;width:262px;background:#fff;border-radius:var(--r);box-shadow:var(--sh-m);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.28s ease;z-index:110}
+.dropdown.open{opacity:1;visibility:visible;transform:none}
+.dd-head{padding:12px 14px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.dd-head b{display:block;font:600 14px var(--sans)}
+.dd-head span{font:400 12px var(--sans);color:var(--ink-soft)}
+.dd-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;font:500 13.5px var(--sans);color:var(--ink);padding:11px 13px;border-radius:6px;transition:.2s}
+.dd-item svg{width:16px;height:16px;color:var(--ink-soft);flex:none}
+.dd-item:hover{background:var(--bg-alt)}
+.dd-badge{margin-left:auto;background:var(--gold);color:#fff;font:600 10.5px var(--sans);border-radius:99px;padding:2px 8px}
+.dd-sep{height:1px;background:var(--line);margin:6px 4px}
+.dd-logout:hover{background:#F6ECE6;color:var(--error)}
+.dd-logout:hover svg{color:var(--error)}
+
+/* burger + mobile menu */
+.burger{display:none;flex-direction:column;gap:6px;width:40px;height:40px;align-items:center;justify-content:center;border-radius:6px}
+.burger span{display:block;width:22px;height:1.8px;background:var(--hd);transition:.3s}
+.burger.open span:nth-child(1){transform:translateY(4px) rotate(45deg)}
+.burger.open span:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:150;background:var(--bg);display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:.35s ease}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mm-top{display:flex;justify-content:space-between;align-items:center;height:78px;flex:none}
+.mm-top .logo{color:var(--ink)}
+.mm-close{width:44px;height:44px;display:grid;place-items:center;color:var(--ink)}
+.mm-close svg{width:22px;height:22px}
+.mm-nav{display:flex;flex-direction:column;gap:6px;padding-top:26px;flex:1}
+.mm-nav a{display:flex;align-items:baseline;gap:18px;font:500 30px var(--serif);padding:13px 0;border-bottom:1px solid var(--line)}
+.mm-nav a i{font:italic 500 14px var(--serif);color:var(--gold)}
+.mm-foot{padding:26px 0 34px;display:flex;flex-direction:column;gap:20px}
+.mm-user{display:flex;align-items:center;gap:13px}
+.mm-user b{display:block;font:600 14.5px var(--sans)}
+.mm-user span{font:400 12.5px var(--sans);color:var(--ink-soft)}
+
+/* ============ Hero ============ */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;color:#FAF9F6}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:kenburns 26s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,24,18,.52) 0%,rgba(26,24,18,.22) 44%,rgba(26,24,18,.5) 100%)}
+.hero-inner{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:130px;padding-bottom:44px}
+.hero-label{font:600 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--gold-l);display:flex;align-items:center;gap:16px}
+.hero-label::before{content:"";width:44px;height:1px;background:var(--gold-l)}
+.hero h1{font:500 clamp(40px,6.3vw,74px)/1.08 var(--serif);letter-spacing:-.01em;max-width:840px;margin-top:22px}
+.hero h1 em{font-style:italic;color:var(--gold-l)}
+.hero-sub{margin-top:24px;max-width:540px;font-size:16px;line-height:1.8;color:rgba(250,249,246,.85)}
+/* booking widget */
+.booking-wrap{position:relative;z-index:5;transform:translateY(50%);margin-top:8px}
+.booking{background:#fff;color:var(--ink);border-radius:var(--r);box-shadow:var(--sh-m);padding:24px 26px;display:grid;grid-template-columns:1.15fr 1.15fr .85fr auto;gap:28px;align-items:end}
+.booking.flash{animation:flash 1.8s ease}
+@keyframes flash{0%,100%{box-shadow:var(--sh-m)}35%{box-shadow:0 0 0 3px var(--gold),var(--sh-m)}}
+.field{min-width:0}
+.field label{display:block;font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
+.field input,.field select{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:9px 2px;font:500 15px var(--sans);color:var(--ink);border-radius:0;outline:none;transition:border-color .25s}
+.field input:focus,.field select:focus{border-color:var(--gold)}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236E6961' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:22px;cursor:pointer}
+input[type="date"]{-webkit-appearance:none;appearance:none}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.55;cursor:pointer}
+
+/* ============ About ============ */
+.about{padding-top:190px}
+.about-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:84px;align-items:center}
+.about-text p+p{margin-top:16px}
+.about-text p{color:var(--ink-soft);font-size:15.5px}
+.about-text .first{color:var(--ink)}
+.stats{display:flex;gap:44px;margin-top:36px;padding-top:30px;border-top:1px solid var(--line)}
+.stat b{display:block;font:500 32px/1.1 var(--serif);color:var(--ink)}
+.stat span{font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.signature{margin-top:34px}
+.signature b{font:italic 500 19px var(--serif);display:block}
+.signature span{font:500 12px var(--sans);color:var(--ink-soft)}
+.about-media{position:relative}
+.about-media::before{content:"";position:absolute;top:-22px;right:-22px;left:22px;bottom:22px;border:1px solid var(--gold);border-radius:var(--r);pointer-events:none}
+.about-media .ph-main{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r);box-shadow:var(--sh-m);position:relative}
+.about-media .ph-small{position:absolute;left:-46px;bottom:-46px;width:198px;aspect-ratio:1;object-fit:cover;border-radius:var(--r);border:7px solid var(--bg);box-shadow:var(--sh-s)}
+
+/* ============ Rooms ============ */
+.rooms{background:var(--bg-alt)}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;margin-top:64px}
+.room{display:flex;flex-direction:column}
+.room:nth-child(2){transform:translateY(54px)}
+.room:nth-child(3){transform:translateY(108px)}
+.room-media{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;box-shadow:var(--sh-s)}
+.room-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.room:hover .room-media img{transform:scale(1.05)}
+.room-tag{position:absolute;top:14px;left:14px;background:var(--gold);color:#fff;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;border-radius:var(--rs)}
+.room-body{padding:22px 4px 0;display:flex;flex-direction:column;flex:1}
+.room-kind{font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.room-body h3{font:500 25px var(--serif);margin:8px 0 6px}
+.room-meta{font:500 12.5px var(--sans);color:var(--ink-soft);padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.room-desc{font-size:14.5px;color:var(--ink-soft);flex:1}
+.room-foot{display:flex;align-items:center;justify-content:space-between;margin-top:22px;gap:14px}
+.price b{font:500 24px var(--serif)}
+.price span{font:500 12px var(--sans);color:var(--ink-soft)}
+.rooms-note{margin-top:152px;text-align:center;font-size:13px;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;gap:10px}
+.rooms-note svg{width:16px;height:16px;color:var(--gold);flex:none}
+
+/* ============ Services ============ */
+.amenities{display:grid;grid-template-columns:repeat(6,1fr);margin-top:60px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.amen{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:30px 14px;border-left:1px solid var(--line)}
+.amen:first-child{border-left:0}
+.amen svg{width:27px;height:27px;color:var(--sage);transition:.3s}
+.amen:hover svg{color:var(--gold);transform:translateY(-3px)}
+.amen span{font:600 12.5px/1.45 var(--sans)}
+.premium{display:grid;grid-template-columns:1.15fr 1fr;grid-template-rows:repeat(2,262px);gap:26px;margin-top:64px}
+.pcard{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-s);text-align:left}
+.pcard.large{grid-row:1/3}
+.pcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s ease}
+.pcard:hover img{transform:scale(1.05)}
+.pcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,24,18,0) 42%,rgba(26,24,18,.74) 100%)}
+.pcard-info{position:absolute;left:26px;right:26px;bottom:22px;color:#fff;z-index:2}
+.pcard-info .k{font:600 10.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
+.pcard-info h3{font:500 clamp(21px,2vw,26px) var(--serif);margin:6px 0 6px}
+.pcard-info p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.86);max-width:420px}
+.pcard .go{display:inline-flex;align-items:center;gap:9px;margin-top:13px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.pcard .go svg{width:15px;height:15px;transition:transform .3s}
+.pcard:hover .go svg{transform:translateX(5px)}
+
+/* ============ Gallery ============ */
+.gallery{background:var(--bg-alt)}
+.masonry{columns:3;column-gap:22px;margin-top:58px}
+.mitem{break-inside:avoid;margin-bottom:22px;border-radius:var(--r);overflow:hidden;cursor:zoom-in;display:block;width:100%;padding:0;box-shadow:var(--sh-s)}
+.mitem img{width:100%;transition:transform .8s ease,filter .5s ease}
+.mitem:hover img{transform:scale(1.045);filter:none}
+
+/* ============ Reviews ============ */
+.reviews{background:var(--dark);color:var(--cream)}
+.reviews .sec-title{color:var(--cream)}
+.rev-wrap{max-width:820px;margin:54px auto 0}
+.rev-viewport{overflow:hidden}
+.rev-track{display:flex;transition:transform .6s cubic-bezier(.7,0,.3,1)}
+.rslide{flex:0 0 100%;padding:6px 4px}
+.rcard{background:var(--bg);color:var(--ink);border-radius:var(--r);padding:48px 54px 44px;box-shadow:0 26px 64px rgba(0,0,0,.32);position:relative}
+.qmark{position:absolute;top:16px;left:38px;font:700 96px/1 var(--serif);color:var(--gold);opacity:.28;pointer-events:none}
+.stars{display:flex;gap:4px;color:var(--gold)}
+.stars svg{width:16px;height:16px}
+.stars .off{fill:none;stroke:var(--gold);stroke-width:1.4}
+.rtext{font:italic 500 19px/1.66 var(--serif);margin:20px 0 28px}
+.rauthor{display:flex;align-items:center;gap:15px}
+.rav{width:46px;height:46px;border-radius:50%;background:var(--bg-alt);color:var(--sage);display:grid;place-items:center;font:600 13px var(--sans);flex:none}
+.rauthor b{display:block;font:600 14.5px var(--sans)}
+.rauthor span{font:400 12.5px var(--sans);color:var(--ink-soft)}
+.rev-controls{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:30px}
+.rev-nav{width:46px;height:46px;border-radius:50%;border:1px solid rgba(244,241,234,.35);color:var(--cream);display:grid;place-items:center;transition:.25s}
+.rev-nav svg{width:17px;height:17px}
+.rev-nav:hover{background:var(--cream);color:var(--dark);border-color:var(--cream)}
+.rev-dots{display:flex;gap:8px}
+.rev-dots button{width:8px;height:8px;border-radius:99px;border:1px solid rgba(244,241,234,.5);transition:.3s;padding:0}
+.rev-dots button.active{width:24px;background:var(--gold);border-color:var(--gold)}
+
+/* ============ Contacts ============ */
+.contacts-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;margin-top:58px;align-items:start}
+.map-wrap{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-m);height:520px}
+.map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.15) sepia(.14) saturate(.88)}
+.map-chip{position:absolute;top:16px;left:16px;background:#fff;border-radius:6px;padding:11px 15px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh-s);font:600 13px var(--sans)}
+.map-chip svg{width:17px;height:17px;color:var(--gold);flex:none}
+.crow{display:flex;gap:17px;padding:19px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.crow-ic{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;flex:none}
+.crow-ic svg{width:19px;height:19px;color:var(--gold)}
+.crow .k{font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:block}
+.crow .v{font:500 15.5px var(--sans);color:var(--ink)}
+.crow a.v:hover{color:var(--gold)}
+.crow .sub{font-size:12.5px;color:var(--ink-soft)}
+.messengers{display:flex;gap:11px;margin:20px 0 34px;flex-wrap:wrap}
+.mess{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:var(--rs);padding:10px 15px;font:600 12px var(--sans);letter-spacing:.06em;transition:.25s}
+.mess svg{width:15px;height:15px;color:var(--sage)}
+.mess:hover{background:var(--sage);border-color:var(--sage);color:#fff}
+.mess:hover svg{color:#fff}
+.form-title{font:500 21px var(--serif);margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid .full{grid-column:1/-1}
+.f-input{width:100%;border:1px solid var(--line);border-radius:var(--rs);background:#fff;padding:13px 15px;font:400 14px var(--sans);color:var(--ink);outline:none;transition:.25s}
+.f-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,140,79,.14)}
+.f-input.invalid{border-color:var(--error)}
+textarea.f-input{resize:vertical;min-height:104px}
+.form-note{font-size:12px;color:var(--ink-soft);margin-top:12px}
+.form-success{display:none;align-items:flex-start;gap:15px;background:#EEF1E6;border:1px solid #DCE3CC;border-radius:var(--r);padding:22px}
+.form-success.show{display:flex}
+.form-success svg{width:22px;height:22px;color:var(--sage);flex:none;margin-top:2px}
+.form-success b{font:600 14.5px var(--sans);display:block}
+.form-success span{font-size:13.5px;color:var(--ink-soft)}
+
+/* ============ Footer ============ */
+.footer{background:var(--dark);color:#B9B3A6}
+.f-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:44px;padding:76px 0 56px}
+.fbrand .logo{color:var(--cream)}
+.fbrand p{font-size:13.5px;line-height:1.85;margin-top:20px;max-width:280px}
+.f-col h4{font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#8F897C;margin-bottom:20px}
+.f-col li{list-style:none;margin-bottom:11px}
+.f-col a{font-size:14px;color:#CFC9BC;transition:.2s}
+.f-col a:hover{color:var(--gold-l)}
+.f-col .req{font-size:13px;line-height:2.05;color:#A29C8F}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:26px 0;border-top:1px solid rgba(244,241,234,.09);font-size:12.5px;color:#8F897C;flex-wrap:wrap}
+.f-legal{display:flex;gap:26px}
+.f-legal button{font-size:12.5px;color:#8F897C;transition:.2s}
+.f-legal button:hover{color:var(--gold-l)}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;border:1px solid rgba(244,241,234,.18);border-radius:50%;display:grid;place-items:center;color:#CFC9BC;transition:.25s}
+.socials a svg{width:16px;height:16px}
+.socials a:hover{border-color:var(--gold-l);color:var(--gold-l);transform:translateY(-2px)}
+
+/* ============ Modals / toasts ============ */
+.modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:.3s ease}
+.modal.open{opacity:1;visibility:visible}
+.modal-overlay{position:absolute;inset:0;background:rgba(26,25,20,.55)}
+.modal-card{position:relative;background:var(--bg);border-radius:var(--r);box-shadow:var(--sh-m);width:min(560px,100%);max-height:88vh;overflow:auto;padding:38px 40px;transform:translateY(16px);transition:.35s ease}
+.modal.open .modal-card{transform:none}
+.modal-close{position:absolute;top:16px;right:16px;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;color:var(--ink-soft);transition:.2s}
+.modal-close:hover{background:var(--bg-alt);color:var(--ink)}
+.modal-close svg{width:17px;height:17px}
+.modal-card h3{font:500 27px var(--serif);margin:8px 0 4px}
+.bm-meta{font:500 13px var(--sans);color:var(--ink-soft);margin-bottom:22px}
+.bm-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:8px}
+.bm-fields .full{grid-column:1/-1}
+.bm-summary{border-top:1px solid var(--line);margin-top:20px;padding-top:16px;font-size:14px}
+.bm-row{display:flex;justify-content:space-between;color:var(--ink-soft);padding:4px 0}
+.bm-row.total{color:var(--ink);font-weight:600;font-size:16px;padding-top:12px;margin-top:8px;border-top:1px solid var(--line)}
+.bm-row.total b{font:600 20px var(--serif)}
+.bm-confirm{width:100%;margin-top:22px}
+.bm-success{display:none;text-align:center;padding:14px 0 4px}
+.bm-success.show{display:block}
+.bm-check{width:66px;height:66px;border-radius:50%;background:#EEF1E6;display:grid;place-items:center;margin:0 auto 20px}
+.bm-check svg{width:28px;height:28px;color:var(--sage)}
+.bm-success h3{margin-bottom:6px}
+.bm-success .num{font:600 13px var(--sans);letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.bm-success p{font-size:14px;color:var(--ink-soft);margin:12px 0 24px}
+.blist{display:flex;flex-direction:column;gap:14px;margin:24px 0 4px}
+.bitem{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:17px 18px}
+.bico{width:44px;height:44px;border-radius:50%;background:var(--bg-alt);display:grid;place-items:center;flex:none}
+.bico svg{width:19px;height:19px;color:var(--sage)}
+.bmain{flex:1;min-width:0}
+.bmain b{font:600 14.5px var(--sans);display:block}
+.bmain em{font:400 12.5px var(--sans);font-style:normal;color:var(--ink-soft)}
+.bright{text-align:right;flex:none}
+.bright b{font:500 16px var(--serif);display:block}
+.badge{display:inline-block;font:600 10.5px var(--sans);letter-spacing:.06em;border-radius:99px;padding:3px 10px;font-style:normal;margin-top:3px}
+.badge.ok{background:#EEF1E6;color:var(--sage-dark)}
+.svc-img{width:100%;height:190px;object-fit:cover;border-radius:var(--r);margin-bottom:20px}
+.svc-price{font:500 16px var(--serif);color:var(--gold);margin:10px 0 16px}
+.svc-list{margin:0 0 24px;padding-left:0}
+.svc-list li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink-soft);padding:6px 0}
+.svc-list li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none;margin-top:9px}
+.doc h4{font:600 13px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin:20px 0 8px}
+.doc p{font-size:13.5px;color:var(--ink-soft)}
+.lightbox .modal-card{background:transparent;box-shadow:none;max-width:min(1080px,94vw);padding:0;overflow:visible}
+.lightbox img{width:100%;max-height:86vh;object-fit:contain;border-radius:var(--r)}
+.lightbox .modal-close{top:-46px;right:0;color:#fff;background:rgba(26,25,20,.4)}
+.toasts{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;gap:10px;max-width:min(360px,calc(100vw - 40px))}
+.toast{background:var(--dark);color:var(--cream);border-left:3px solid var(--gold);padding:14px 18px;border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.3);font:500 13.5px/1.5 var(--sans);animation:tin .4s ease;transition:.4s ease}
+.toast.err{border-left-color:var(--error)}
+.toast.hide{opacity:0;transform:translateX(20px)}
+@keyframes tin{from{opacity:0;transform:translateY(12px)}}
+
+/* ============ Reveal on scroll ============ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .75s ease,transform .75s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* ============ Responsive ============ */
+@media (max-width:1100px){
+  .main-nav{display:none}
+  .burger{display:flex}
+  .booking-wrap{transform:none;margin-top:36px}
+  .hero{padding-bottom:40px}
+  .about{padding-top:96px}
+  .booking{grid-template-columns:1fr 1fr}
+  .booking .btn{grid-column:1/-1}
+  .about-grid{grid-template-columns:1fr;gap:70px}
+  .about-media{order:-1;max-width:520px}
+  .rooms-grid{grid-template-columns:1fr;max-width:560px;margin:56px auto 0}
+  .room:nth-child(2),.room:nth-child(3){transform:none}
+  .room-media{aspect-ratio:3/2}
+  .rooms-note{margin-top:48px}
+  .amenities{grid-template-columns:repeat(3,1fr)}
+  .amen:nth-child(4){border-left:0}
+  .amen{border-top:1px solid var(--line)}
+  .amen:nth-child(-n+3){border-top:0}
+  .premium{grid-template-columns:1fr;grid-template-rows:none}
+  .pcard.large{grid-row:auto;height:340px}
+  .pcard{height:250px}
+  .masonry{columns:2}
+  .contacts-grid{grid-template-columns:1fr;gap:56px}
+  .map-wrap{height:400px}
+  .sec-head .sec-lead{text-align:left}
+  .f-top{grid-template-columns:1fr 1fr;gap:40px;padding:60px 0 44px}
+  .user-name{display:none}
+}
+@media (max-width:640px){
+  .section{padding:80px 0}
+  .booking{grid-template-columns:1fr;gap:20px;padding:22px}
+  .amenities{grid-template-columns:repeat(2,1fr)}
+  .amen{border-left:0}
+  .amen:nth-child(n+3){border-top:1px solid var(--line)}
+  .rcard{padding:38px 26px 34px}
+  .rtext{font-size:17px}
+  .bm-fields,.form-grid{grid-template-columns:1fr}
+  .f-bottom{flex-direction:column;text-align:center}
+  .about-media .ph-small{left:-12px;bottom:-30px;width:140px}
+  .stats{gap:26px;flex-wrap:wrap}
+  .f-top{grid-template-columns:1fr}
+  .modal-card{padding:30px 24px}
+}
+@media (max-width:460px){.masonry{columns:1}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ Sticky header (demo logged-in state) ============ -->
+<header class="header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#top" class="logo" aria-label="Світанок — на головну">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 28.5h28"/><path d="M12.5 28.5a7.5 7.5 0 0 1 15 0"/>
+        <path d="M20 10.5v4.2"/><path d="M10.2 15l3 3"/><path d="M29.8 15l-3 3"/>
+      </svg>
+      <span class="logo-text"><b>СВІТАНОК</b><small>бутик-готель · Київ</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Основна навігація">
+      <a href="#about" data-nav="about">Про нас</a>
+      <a href="#rooms" data-nav="rooms">Номери</a>
+      <a href="#services" data-nav="services">Послуги</a>
+      <a href="#contacts" data-nav="contacts">Контакти</a>
+    </nav>
+    <div class="header-actions">
+      <div class="user-menu">
+        <button class="user-btn" id="userBtn" aria-haspopup="true" aria-expanded="false">
+          <span class="avatar">ОК</span>
+          <span class="user-name">Олександр</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown" id="userDropdown" role="menu">
+          <div class="dd-head"><b>Олександр Ковальчук</b><span>+38 067 214 88 30</span></div>
+          <button class="dd-item" id="ddBookings" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10.5h16M8 3.5v4M16 3.5v4"/></svg>
+            Мої бронювання <span class="dd-badge" id="ddBadge">1</span>
+          </button>
+          <div class="dd-sep"></div>
+          <button class="dd-item dd-logout" id="ddLogout" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><path d="M15 8l4 4-4 4M19 12H9"/></svg>
+            Вийти
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-book" id="headerBook">Забронювати</button>
+      <button class="burger" id="burger" aria-label="Відкрити меню"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="container mm-top">
+    <a href="#top" class="logo">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="width:34px;height:34px;color:var(--gold)" aria-hidden="true">
+        <path d="M6 28.5h28"/><path d="M12.5 28.5a7.5 7.5 0 0 1 15 0"/><path d="M20 10.5v4.2"/><path d="M10.2 15l3 3"/><path d="M29.8 15l-3 3"/>
+      </svg>
+      <span class="logo-text"><b>СВІТАНОК</b><small>бутик-готель · Київ</small></span>
+    </a>
+    <button class="mm-close" id="mmClose" aria-label="Закрити меню">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="container mm-nav" aria-label="Мобільна навігація">
+    <a href="#about"><i>01</i>Про нас</a>
+    <a href="#rooms"><i>02</i>Номери</a>
+    <a href="#services"><i>03</i>Послуги</a>
+    <a href="#contacts"><i>04</i>Контакти</a>
+  </nav>
+  <div class="container mm-foot">
+    <div class="mm-user">
+      <span class="avatar">ОК</span>
+      <div><b>Олександр Ковальчук</b><span>+38 067 214 88 30</span></div>
+    </div>
+    <button class="btn btn-primary" id="mmBook">Забронювати номер</button>
+  </div>
+</div>
+
+<main>
+<!-- ============ 2. Hero ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&amp;fit=crop&amp;w=1920&amp;h=1080&amp;q=80" alt="Світлий номер бутик-готелю «Світанок»"></div>
+  <div class="hero-scrim"></div>
+  <div class="container hero-inner">
+    <p class="hero-label">Бутик-готель · Андріївський узвіз, 12</p>
+    <h1>Тиша, світло і <em>ранкова кава</em> над Подолом</h1>
+    <p class="hero-sub">Дванадцять світлих номерів у відреставрованій кам'яниці XIX століття. Авторські сніданки, персональний консьєрж і краєвид на золоті куполи.</p>
+  </div>
+  <div class="container booking-wrap">
+    <form class="booking" id="bookingWidget" novalidate>
+      <div class="field">
+        <label for="bw-in">Дата заїзду</label>
+        <input type="date" id="bw-in" required>
+      </div>
+      <div class="field">
+        <label for="bw-out">Дата виїзду</label>
+        <input type="date" id="bw-out" required>
+      </div>
+      <div class="field">
+        <label for="bw-guests">Гості</label>
+        <select id="bw-guests">
+          <option value="1">1 гість</option>
+          <option value="2" selected>2 гості</option>
+          <option value="3">3 гості</option>
+          <option value="4">4 гості</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Знайти номер</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 3. About ============ -->
+<section class="section about" id="about">
+  <div class="container about-grid">
+    <div class="about-text reveal">
+      <span class="label">Про нас</span>
+      <h2 class="sec-title">Місце, де місто <em>сповільнюється</em></h2>
+      <p class="first">«Світанок» почався зі старої кам'яниці 1874 року на Андріївському узвозі. Ми відбудували її цегла за цеглиною — і відкрили готель, у якому історія Києва відчувається в кожній деталі: від відновлених стель до сходинок, витертих поколіннями мешканців Подолу.</p>
+      <p>Усього дванадцять номерів — і жодного зайвого. Дуб, лен і кераміка роботи українських майстрів, тиша за товстими мурами, сніданки зі страв за родинними рецептами. Ми віримо, що справжня розкіш — це спокій і час на те, що важливо.</p>
+      <div class="stats">
+        <div class="stat"><b>12</b><span>номерів</span></div>
+        <div class="stat"><b>1874</b><span>рік будинку</span></div>
+        <div class="stat"><b>4,9</b><span>оцінка гостей</span></div>
+      </div>
+      <div class="signature"><b>Родина Мельник</b><span>ваші господарі</span></div>
+    </div>
+    <div class="about-media reveal d1">
+      <img class="ph-main ph" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&amp;fit=crop&amp;w=760&amp;h=950&amp;q=80" alt="Лобі бутик-готелю «Світанок»">
+      <img class="ph-small ph" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;w=480&amp;h=480&amp;q=80" alt="Теплі деталі інтер'єру при вечірньому світлі">
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. Rooms ============ -->
+<section class="section rooms" id="rooms">
+  <div class="container">
+    <div class="sec-head">
+      <div class="reveal">
+        <span class="label">Номери та ціни</span>
+        <h2 class="sec-title">Оберіть свій <em>простір</em></h2>
+      </div>
+      <p class="sec-lead reveal d1">Три категорії — від затишного стандарту до люксу з приватною терасою. Кожен номер прибирається двічі на день.</p>
+    </div>
+    <div class="rooms-grid">
+      <article class="room reveal">
+        <div class="room-media"><img class="ph" src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&amp;fit=crop&amp;w=720&amp;h=900&amp;q=80" alt="Номер «Стандарт» — ліжко king-size у світлих тонах" loading="lazy"></div>
+        <div class="room-body">
+          <span class="room-kind">24 м²</span>
+          <h3>Стандарт</h3>
+          <div class="room-meta">2 гості · ліжко king-size</div>
+          <p class="room-desc">Затишний номер у теплих тонах дуба з видом на внутрішнє подвір'я та письмовим столом.</p>
+          <div class="room-foot">
+            <div class="price"><b>3 200 ₴</b> <span>/ ніч</span></div>
+            <button class="btn btn-outline room-book" data-room="standard">Забронювати</button>
+          </div>
+        </div>
+      </article>
+      <article class="room reveal d1">
+        <div class="room-media"><img class="ph" src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&amp;fit=crop&amp;w=720&amp;h=900&amp;q=80" alt="Номер «Делюкс» — простора світла спальня" loading="lazy"></div>
+        <div class="room-body">
+          <span class="room-kind">32 м²</span>
+          <h3>Делюкс</h3>
+          <div class="room-meta">2–3 гості · ванна з підігрівом підлоги</div>
+          <p class="room-desc">Простора світла спальня, крісло біля панорамного вікна та ранкова кава за вашим розкладом.</p>
+          <div class="room-foot">
+            <div class="price"><b>5 400 ₴</b> <span>/ ніч</span></div>
+            <button class="btn btn-outline room-book" data-room="deluxe">Забронювати</button>
+          </div>
+        </div>
+      </article>
+      <article class="room reveal d2">
+        <div class="room-media">
+          <span class="room-tag">Найпопулярніший</span>
+          <img class="ph" src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&amp;fit=crop&amp;w=720&amp;h=900&amp;q=80" alt="Номер «Люкс» — темне дерево, атмосферне вечірнє світло" loading="lazy">
+        </div>
+        <div class="room-body">
+          <span class="room-kind">48 м²</span>
+          <h3>Люкс</h3>
+          <div class="room-meta">до 4 гостей · приватна тераса</div>
+          <p class="room-desc">Дві кімнати, тераса з краєвидом на Андріївський узвіз і сніданок на терасі вже включено.</p>
+          <div class="room-foot">
+            <div class="price"><b>8 900 ₴</b> <span>/ ніч</span></div>
+            <button class="btn btn-outline room-book" data-room="suite">Забронювати</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="rooms-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></svg>
+      Ціни вказано за ніч із включеним сніданком. Скасування безкоштовне не пізніше ніж за 48 годин до заїзду.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 5. Services ============ -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="sec-head">
+      <div class="reveal">
+        <span class="label">Послуги та зручності</span>
+        <h2 class="sec-title">Дрібниці, з яких <em>складається</em> відпочинок</h2>
+      </div>
+      <p class="sec-lead reveal d1">У «Світанку» немає нічого зайвого — лише те, що справді потрібне гостю.</p>
+    </div>
+    <div class="amenities reveal">
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 9.5a14 14 0 0 1 19 0"/><path d="M5.5 12.8a9.5 9.5 0 0 1 13 0"/><path d="M8.6 16a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19.2" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <span>Бездротовий Wi-Fi</span>
+      </div>
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16v2M19 16v2"/><path d="M3.5 16v-3l1.7-4.2A2 2 0 0 1 7 7.5h10a2 2 0 0 1 1.8 1.3L20.5 13v3"/><path d="M3.5 13h17"/><circle cx="7.5" cy="15.7" r="1.2"/><circle cx="16.5" cy="15.7" r="1.2"/></svg>
+        <span>Парковка на території</span>
+      </div>
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M16 10.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M7.5 3.5c0 1-1 1.5-1 2.5M11.5 3.5c0 1-1 1.5-1 2.5"/></svg>
+        <span>Сніданок у номер</span>
+      </div>
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 17.5h16"/><path d="M5 17.5a7 7 0 0 1 14 0"/><path d="M12 10.5V9"/><path d="M10.2 9h3.6"/></svg>
+        <span>Консьєрж 24/7</span>
+      </div>
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V7.4M12 16.6v-1.4M15.2 12h1.4M7.4 12h1.4"/></svg>
+        <span>Сейф у номері</span>
+      </div>
+      <div class="amen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 4l1.8 4.6 4.7 1.4-4.7 1.4L12 16l-1.8-4.6-4.7-1.4 4.7-1.4L12 4z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+        <span>Прибирання двічі на день</span>
+      </div>
+    </div>
+    <div class="premium">
+      <button class="pcard large reveal" data-svc="spa" aria-label="Детальніше про SPA-центр">
+        <img class="ph" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&amp;fit=crop&amp;w=920&amp;h=900&amp;q=80" alt="SPA-центр: масажний стіл, рушники та свічки" loading="lazy">
+        <span class="pcard-info">
+          <span class="k">Відновлення</span>
+          <h3>SPA-центр «Парна»</h3>
+          <p>Хамам, кедрова сауна та три масажні кабінети з видом на схили Подолу.</p>
+          <span class="go">Детальніше <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </button>
+      <button class="pcard reveal d1" data-svc="rest" aria-label="Детальніше про ресторан">
+        <img class="ph" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&amp;fit=crop&amp;w=760&amp;h=560&amp;q=80" alt="Інтер'єр ресторану з теплим вечірнім світлом" loading="lazy">
+        <span class="pcard-info">
+          <span class="k">Гастрономія</span>
+          <h3>Ресторан «Тераса»</h3>
+          <p>Авторська українська кухня та вечері на відкритій терасі з краєвидом.</p>
+          <span class="go">Детальніше <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </button>
+      <button class="pcard reveal d2" data-svc="transfer" aria-label="Детальніше про трансфер">
+        <img class="ph" src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&amp;fit=crop&amp;w=760&amp;h=560&amp;q=80" alt="Автомобіль для індивідуального трансферу" loading="lazy">
+        <span class="pcard-info">
+          <span class="k">По дорозі</span>
+          <h3>Індивідуальний трансфер</h3>
+          <p>Зустріч у аеропорту чи на вокзалі. Водій чекає безкоштовно до 60 хвилин.</p>
+          <span class="go">Детальніше <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. Gallery ============ -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <span class="label reveal">Галерея</span>
+    <h2 class="sec-title reveal">Атмосфера <em>«Світанку»</em></h2>
+    <p class="sec-lead reveal d1">Кілька кадрів із ранку до вечора — без слів.</p>
+    <div class="masonry">
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&amp;fit=crop&amp;w=640&amp;h=820&amp;q=80" data-full="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&amp;fit=crop&amp;w=1200&amp;h=1540&amp;q=80" alt="Білизна та подушки у готельному номері" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&amp;fit=crop&amp;w=640&amp;h=430&amp;q=80" data-full="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&amp;fit=crop&amp;w=1200&amp;h=810&amp;q=80" alt="Ранковий сніданок із круасанами" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=640&amp;h=560&amp;q=80" data-full="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=1200&amp;h=1050&amp;q=80" alt="Ранкова кава з латте-арт" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&amp;fit=crop&amp;w=640&amp;h=860&amp;q=80" data-full="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&amp;fit=crop&amp;w=1200&amp;h=1610&amp;q=80" alt="Світла ванна кімната номера" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&amp;fit=crop&amp;w=640&amp;h=420&amp;q=80" data-full="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&amp;fit=crop&amp;w=1200&amp;h=790&amp;q=80" alt="Стара вуличка Подолу біля готелю" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=640&amp;h=700&amp;q=80" data-full="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=1200&amp;h=1310&amp;q=80" alt="Басейн та зона відпочинку готелю" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&amp;fit=crop&amp;w=640&amp;h=520&amp;q=80" data-full="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&amp;fit=crop&amp;w=1200&amp;h=980&amp;q=80" alt="Бібліотека та лаунж-зона готелю" loading="lazy"></button>
+      <button class="mitem reveal"><img class="ph" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=640&amp;h=760&amp;q=80" data-full="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=1425&amp;q=80" alt="Зал ресторану «Тераса»" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. Reviews ============ -->
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="label center reveal">Відгуки гостей</span>
+      <h2 class="sec-title reveal">Що кажуть <em>наші гості</em></h2>
+    </div>
+    <div class="rev-wrap reveal" id="revWrap">
+      <div class="rev-viewport">
+        <div class="rev-track" id="revTrack">
+          <div class="rslide"><div class="rcard">
+            <span class="qmark">“</span>
+            <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+            <p class="rtext">Найтихіший готель, у якому я зупинялася в Києві. Сніданок на терасі — окреме задоволення: сирники з ідеальною сметаною та кава з чебрецем.</p>
+            <div class="rauthor"><span class="rav">МК</span><div><b>Марина Кравченко</b><span>Делюкс · березень 2025</span></div></div>
+          </div></div>
+          <div class="rslide"><div class="rcard">
+            <span class="qmark">“</span>
+            <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+            <p class="rtext">Святкували річницю. Персонал прикрасив номер і залишив листівку від руків'я — таких дрібниць не буває випадково. Обов'язково повернемося.</p>
+            <div class="rauthor"><span class="rav">ДО</span><div><b>Дмитро та Ольга</b><span>Люкс · травень 2025</span></div></div>
+          </div></div>
+          <div class="rslide"><div class="rcard">
+            <span class="qmark">“</span>
+            <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+            <p class="rtext">Ідеальне розташування: до Подолу пішки, а водночас — жодного шуму під вікнами. І ліжко, з якого справді не хочеться вставати.</p>
+            <div class="rauthor"><span class="rav">ІС</span><div><b>Ірина Соколова</b><span>Стандарт · січень 2025</span></div></div>
+          </div></div>
+          <div class="rslide"><div class="rcard">
+            <span class="qmark">“</span>
+            <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+            <p class="rtext">Чудовий SPA та дуже уважний персонал. Єдине — хотілося б більше розеток біля ліжка, але це справді дрібниця на тлі загального враження.</p>
+            <div class="rauthor"><span class="rav">АП</span><div><b>Андрій Павленко</b><span>Делюкс · червень 2025</span></div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="rev-controls">
+        <button class="rev-nav" id="revPrev" aria-label="Попередній відгук"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <div class="rev-dots" id="revDots"></div>
+        <button class="rev-nav" id="revNext" aria-label="Наступний відгук"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. Contacts ============ -->
+<section class="section contacts" id="contacts">
+  <div class="container">
+    <span class="label reveal">Контакти та розташування</span>
+    <h2 class="sec-title reveal">Ми поруч із <em>серцем міста</em></h2>
+    <div class="contacts-grid">
+      <div class="map-wrap reveal">
+        <iframe title="Карта розташування готелю «Світанок»" loading="lazy"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=30.5041%2C50.5398%2C30.5241%2C50.5508&amp;layer=mapnik&amp;marker=50.5453%2C30.5141"></iframe>
+        <div class="map-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.2-6.5-10a6.5 6.5 0 0 1 13 0C18.5 15.8 12 21 12 21z"/><circle cx="12" cy="10.7" r="2.3"/></svg>
+          Андріївський узвіз, 12
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="crow">
+          <span class="crow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.2-6.5-10a6.5 6.5 0 0 1 13 0C18.5 15.8 12 21 12 21z"/><circle cx="12" cy="10.7" r="2.3"/></svg></span>
+          <div><span class="k">Адреса</span><span class="v">м. Київ, Андріївський узвіз, 12</span><div class="sub">5 хвилин пішки до Поштової площі</div></div>
+        </div>
+        <div class="crow">
+          <span class="crow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 4h4l1.5 4.5L8 10a12 12 0 0 0 6 6l1.5-2.5L20 15v4a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg></span>
+          <div><span class="k">Телефон</span><a class="v" href="tel:+380441234567">+38 044 123 45 67</a><div class="sub">Ресепшен — цілодобово</div></div>
+        </div>
+        <div class="crow">
+          <span class="crow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5"/></svg></span>
+          <div><span class="k">Електронна пошта</span><a class="v" href="mailto:stay@svitanok.kyiv">stay@svitanok.kyiv</a><div class="sub">Відповідаємо протягом 30 хвилин</div></div>
+        </div>
+        <div class="messengers">
+          <a class="mess" href="https://t.me/svitanok_hotel" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 4.4L2.9 11.6c-1 .4-1 1.4-.2 1.7l4.7 1.5 1.8 5.6c.3.8 1 .9 1.6.3l2.6-2.5 4.9 3.6c.7.4 1.5.1 1.7-.8l3-14.7c.2-1-.4-1.5-1.4-1.9z"/></svg>
+            Telegram
+          </a>
+          <a class="mess" href="https://wa.me/380671234567" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.8L3 21l1.2-4.6A9 9 0 1 1 21 12z"/><path d="M8.8 12h.01M12 12h.01M15.2 12h.01"/></svg>
+            WhatsApp
+          </a>
+          <a class="mess" href="viber://chat?number=%2B380671234567">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 4h4l1.5 4.5L8 10a12 12 0 0 0 6 6l1.5-2.5L20 15v4a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>
+            Viber
+          </a>
+        </div>
+        <h3 class="form-title">Напишіть нам</h3>
+        <form id="cfForm" novalidate>
+          <div class="form-grid">
+            <input class="f-input" id="cfName" type="text" placeholder="Ваше ім'я" autocomplete="name">
+            <input class="f-input" id="cfContact" type="text" placeholder="Телефон або email">
+            <textarea class="f-input full" id="cfMsg" placeholder="Повідомлення (необов'язково)"></textarea>
+          </div>
+          <div style="margin-top:16px"><button type="submit" class="btn btn-primary">Надіслати</button></div>
+          <p class="form-note">Натискаючи «Надіслати», ви погоджуєтесь з політикою конфіденційності.</p>
+        </form>
+        <div class="form-success" id="cfSuccess">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          <div><b id="cfSuccessTitle">Дякуємо! Повідомлення надіслано.</b><span>Ми відповімо протягом 30 хвилин у робочий час.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ 9. Footer ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="f-top">
+      <div class="fbrand">
+        <a href="#top" class="logo">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="width:36px;height:36px;color:var(--gold-l)" aria-hidden="true">
+            <path d="M6 28.5h28"/><path d="M12.5 28.5a7.5 7.5 0 0 1 15 0"/><path d="M20 10.5v4.2"/><path d="M10.2 15l3 3"/><path d="M29.8 15l-3 3"/>
+          </svg>
+          <span class="logo-text"><b>СВІТАНОК</b><small>бутик-готель · Київ</small></span>
+        </a>
+        <p>Дім для тих, хто подорожує повільно. Дванадцять номерів, одна стара кам'яниця і найкращі ранки Подолу.</p>
+      </div>
+      <div class="f-col">
+        <h4>Навігація</h4>
+        <ul>
+          <li><a href="#about">Про нас</a></li>
+          <li><a href="#rooms">Номери</a></li>
+          <li><a href="#services">Послуги</a></li>
+          <li><a href="#gallery">Галерея</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Контакти</h4>
+        <ul>
+          <li><a href="#contacts">Андріївський узвіз, 12, Київ</a></li>
+          <li><a href="tel:+380441234567">+38 044 123 45 67</a></li>
+          <li><a href="tel:+380671234567">+38 067 123 45 67</a></li>
+          <li><a href="mailto:stay@svitanok.kyiv">stay@svitanok.kyiv</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Реквізити</h4>
+        <p class="req">ТОВ «Світанок Груп»<br>ЄДРПОУ 43826107<br>ІПН 6421039876<br>Ліцензія АЕ № 271648 від 14.03.2023</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2025 Бутик-готель «Світанок». Усі права захищено.</span>
+      <div class="f-legal">
+        <button data-doc="policy">Політика конфіденційності</button>
+        <button data-doc="offer">Публічна оферта</button>
+      </div>
+      <div class="socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.6 1.6-1.6h1.3V4.8c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4v2.4H8v3h2.2v7h3.3z"/></svg>
+        </a>
+        <a href="https://t.me/svitanok_hotel" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 4.4L2.9 11.6c-1 .4-1 1.4-.2 1.7l4.7 1.5 1.8 5.6c.3.8 1 .9 1.6.3l2.6-2.5 4.9 3.6c.7.4 1.5.1 1.7-.8l3-14.7c.2-1-.4-1.5-1.4-1.9z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ Modals ============ -->
+<!-- Individual room booking -->
+<div class="modal" id="bookingModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Бронювання номера">
+    <button class="modal-close" data-close aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="bmForm">
+      <span class="label">Бронювання</span>
+      <h3 id="bmTitle">Люкс</h3>
+      <p class="bm-meta" id="bmMeta"></p>
+      <div class="bm-fields">
+        <div class="field"><label for="bm-in">Дата заїзду</label><input type="date" id="bm-in"></div>
+        <div class="field"><label for="bm-out">Дата виїзду</label><input type="date" id="bm-out"></div>
+        <div class="field full"><label for="bm-guests">Гості</label>
+          <select id="bm-guests">
+            <option value="1">1 гість</option><option value="2" selected>2 гості</option>
+            <option value="3">3 гості</option><option value="4">4 гості</option>
+          </select>
+        </div>
+      </div>
+      <div class="bm-summary">
+        <div class="bm-row"><span id="bmNights">—</span><span id="bmNightSum"></span></div>
+        <div class="bm-row"><span>Сніданок та парковка</span><span>включено</span></div>
+        <div class="bm-row total"><span>Разом</span><b id="bmTotal">—</b></div>
+      </div>
+      <button class="btn btn-primary bm-confirm" id="bmConfirm">Підтвердити бронювання</button>
+    </div>
+    <div class="bm-success" id="bmSuccess">
+      <span class="bm-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <span class="num" id="bmNum"></span>
+      <h3>Бронювання підтверджено</h3>
+      <p id="bmDates"></p>
+      <button class="btn btn-outline" id="bmSee">Мої бронювання</button>
+    </div>
+  </div>
+</div>
+
+<!-- My bookings -->
+<div class="modal" id="bookingsModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Мої бронювання" style="width:min(620px,100%)">
+    <button class="modal-close" data-close aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="label">Олександр Ковальчук</span>
+    <h3>Мої бронювання</h3>
+    <div class="blist" id="bookingsList"></div>
+    <p class="form-note">Ваш менеджер зв'яжеться з вами напередодні заїзду для підтвердження деталей.</p>
+  </div>
+</div>
+
+<!-- Service details -->
+<div class="modal" id="serviceModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Деталі послуги" style="width:min(600px,100%)">
+    <button class="modal-close" data-close aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="label" id="svcKind"></span>
+    <h3 id="svcTitle"></h3>
+    <img class="svc-img ph" id="svcImg" src="" alt="">
+    <p class="sec-lead" id="svcDesc" style="max-width:none"></p>
+    <p class="svc-price" id="svcPrice"></p>
+    <ul class="svc-list" id="svcList"></ul>
+    <button class="btn btn-primary" id="svcRequest" style="width:100%">Залишити запит</button>
+  </div>
+</div>
+
+<!-- Legal documents -->
+<div class="modal" id="docModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card doc" role="dialog" aria-modal="true" style="width:min(660px,100%)">
+    <button class="modal-close" data-close aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="label">Документи</span>
+    <h3 id="docTitle"></h3>
+    <div id="docBody"></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="modal lightbox" id="lightbox" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Перегляд фото">
+    <button class="modal-close" data-close aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img id="lbImg" src="" alt="Фото готелю у повному розмірі">
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ============ Helpers ============ */
+const $ = s => document.querySelector(s);
+const money = n => n.toLocaleString('uk-UA') + ' ₴';
+const iso = d => d.toISOString().slice(0,10);
+const nights = (ci,co) => Math.round((new Date(co) - new Date(ci)) / 864e5);
+function nightsWord(n){
+  if(n % 10 === 1 && n % 100 !== 11) return 'ніч';
+  if([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return 'ночі';
+  return 'ночей';
+}
+function guestWord(n){
+  const m = n % 100;
+  if(m >= 11 && m <= 14) return 'гостей';
+  return {1:'гість',2:'гостя',3:'гостя',4:'гостя'}[n % 10] || 'гостей';
+}
+function rangeText(ci,co){
+  const a = new Date(ci), b = new Date(co);
+  const fm = d => d.toLocaleDateString('uk-UA',{month:'long'});
+  const sameMonth = a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
+  return sameMonth
+    ? `${a.getDate()}–${b.getDate()} ${fm(b)} ${b.getFullYear()}`
+    : `${a.getDate()} ${fm(a)} – ${b.getDate()} ${fm(b)} ${b.getFullYear()}`;
+}
+function toast(msg, type){
+  const t = document.createElement('div');
+  t.className = 'toast' + (type === 'err' ? ' err' : '');
+  t.textContent = msg;
+  $('#toasts').appendChild(t);
+  setTimeout(() => { t.classList.add('hide'); setTimeout(() => t.remove(), 450); }, 3600);
+}
+
+/* ============ Data ============ */
+const ROOMS = {
+  standard:{ name:'Стандарт', price:3200, meta:'24 м² · до 2 гостей' },
+  deluxe:  { name:'Делюкс',   price:5400, meta:'32 м² · 2–3 гості'  },
+  suite:   { name:'Люкс',     price:8900, meta:'48 м² · до 4 гостей, тераса' }
+};
+const SERVICES = {
+  spa:{ kind:'Відновлення', title:'SPA-центр «Парна»', img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=920&h=500&q=80',
+    desc:'Зона на 8 гостей працює щодня з 8:00 до 22:00. Попередній запис — на ресепшені або в месенджерах.',
+    price:'від 1 100 ₴ / сеанс',
+    list:['Хамам та кедрова сауна','Класичний і арома-масаж','Сеанси для двох','Гостям готелю — знижка 10%'] },
+  rest:{ kind:'Гастрономія', title:'Ресторан «Тераса»', img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=920&h=500&q=80',
+    desc:'Авторська українська кухня за родинними рецептами Подолу та винна карта з локальних господарств.',
+    price:'середній чек — 900 ₴',
+    list:['Сніданки: 7:00–11:30','Вечеря: 18:00–23:00','Страви сезонного меню','Вечері на відкритій терасі'] },
+  transfer:{ kind:'По дорозі', title:'Індивідуальний трансфер', img:'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=920&h=500&q=80',
+    desc:'Комфортний автомобіль з водієм, дитяче крісло за запитом. Оформлення — за 12 годин до поїздки.',
+    price:'від 650 ₴ / поїздка',
+    list:['Аеропорт «Бориспіль» — 950 ₴','Аеропорт «Жуляни» — 650 ₴','Дитяче крісло — безкоштовно','Очікування водія — до 60 хв безкоштовно'] }
+};
+const DOCS = {
+  policy:{ title:'Політика конфіденційності', body:`
+    <h4>1. Які дані ми збираємо</h4><p>Під час бронювання ми обробляємо ім'я, номер телефону та електронну пошту виключно для оформлення проживання і зв'язку з гостем.</p>
+    <h4>2. Як ми використовуємо дані</h4><p>Дані не передаються третім особам, крім випадків, передбачених законом України «Про захист персональних даних».</p>
+    <h4>3. Зберігання</h4><p>Історія бронювань зберігається 3 роки. Ви можете запросити видалення даних, написавши на stay@svitanok.kyiv.</p>` },
+  offer:{ title:'Публічна оферта', body:`
+    <h4>1. Предмет</h4><p>ТОВ «Світанок Груп» надає послуги тимчасового проживання у готелі «Світанок» на умовах, описаних на цьому сайті.</p>
+    <h4>2. Бронювання та скасування</h4><p>Бронювання вважається підтвердженим після підтвердження менеджером. Скасування безкоштовне не пізніше ніж за 48 годин до дати заїзду.</p>
+    <h4>3. Оплата</h4><p>Оплата здійснюється в гривнях upon заїзді або онлайн. Ціни включають сніданок і користування парковкою.</p>` }
+};
+const CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10.5h16M8 3.5v4M16 3.5v4"/></svg>';
+
+/* Demo logged-in guest state */
+const today = new Date();
+const d = n => { const x = new Date(today); x.setDate(x.getDate() + n); return iso(x); };
+let bookings = [
+  { id:'SW-2481', room:'Люкс', ci:d(12), co:d(15), guests:2, total:26700, status:'Підтверджено' }
+];
+let nextId = 2482;
+let chosen = { ci:d(14), co:d(16), guests:'2' }; // dates picked in the hero widget
+
+/* ============ Photo fallback: if Unsplash is unavailable, show a themed placeholder ============ */
+function watchImg(img){
+  img.addEventListener('error', () => {
+    const m = img.src.match(/w=(\d+)&h=(\d+)/);
+    const w = m ? m[1] : 800, h = m ? m[2] : 600;
+    const seed = 'svitanok-' + (img.alt || 'photo').replace(/\W+/g, '').slice(0, 14);
+    img.src = 'https://picsum.photos/seed/' + seed + '/' + w + '/' + h + '.jpg';
+  }, { once: true });
+}
+document.querySelectorAll('img').forEach(watchImg);
+
+/* ============ Modal helpers ============ */
+function openModal(m){ m.classList.add('open'); m.setAttribute('aria-hidden','false'); document.body.classList.add('lock'); }
+function closeModal(m){ m.classList.remove('open'); m.setAttribute('aria-hidden','true'); if(!document.querySelector('.modal.open')) document.body.classList.remove('lock'); }
+document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => {
+  if(e.target.classList.contains('modal-overlay') || e.target.closest('[data-close]')) closeModal(m);
+}));
+
+/* ============ Header: scroll state, dropdown, mobile menu ============ */
+const header = $('#siteHeader');
+addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 30), { passive:true });
+header.classList.toggle('scrolled', scrollY > 30);
+
+const userBtn = $('#userBtn'), dropdown = $('#userDropdown');
+userBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = dropdown.classList.toggle('open');
+  userBtn.classList.toggle('open', open);
+  userBtn.setAttribute('aria-expanded', open);
+});
+document.addEventListener('click', e => {
+  if(!e.target.closest('.user-menu')){ dropdown.classList.remove('open'); userBtn.classList.remove('open'); }
+});
+
+const mobileMenu = $('#mobileMenu'), burger = $('#burger');
+function toggleMenu(open){
+  mobileMenu.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  document.body.classList.toggle('lock', open || !!document.querySelector('.modal.open'));
+}
+burger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+ $('#mmClose').addEventListener('click', () => toggleMenu(false));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+function goBook(){
+  toggleMenu(false);
+  scrollTo({ top:0, behavior:'smooth' });
+  setTimeout(() => {
+    const b = $('#bookingWidget');
+    b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
+    $('#bw-in').focus({ preventScroll:true });
+  }, 650);
+}
+ $('#headerBook').addEventListener('click', goBook);
+ $('#mmBook').addEventListener('click', goBook);
+
+/* Dropdown actions */
+ $('#ddBookings').addEventListener('click', () => { dropdown.classList.remove('open'); renderBookings(); openModal($('#bookingsModal')); });
+ $('#ddLogout').addEventListener('click', () => {
+  dropdown.classList.remove('open');
+  toast('Це демо-версія: сесію гостя «Олександр» збережено.');
+});
+
+/* ============ Hero booking widget ============ */
+const bwIn = $('#bw-in'), bwOut = $('#bw-out'), bwGuests = $('#bw-guests');
+bwIn.value = d(14); bwOut.value = d(16); bwIn.min = iso(today); bwOut.min = d(1);
+bwIn.addEventListener('change', () => {
+  if(bwOut.value <= bwIn.value){ const x = new Date(bwIn.value); x.setDate(x.getDate()+1); bwOut.value = iso(x); }
+});
+ $('#bookingWidget').addEventListener('submit', e => {
+  e.preventDefault();
+  if(!bwIn.value || !bwOut.value) return toast('Оберіть дати заїзду та виїзду.', 'err');
+  const n = nights(bwIn.value, bwOut.value);
+  if(n < 1) return toast('Дата виїзду має бути пізніше за дату заїзду.', 'err');
+  chosen = { ci:bwIn.value, co:bwOut.value, guests:bwGuests.value };
+  toast(`Знайдено 3 вільні номери на ${n} ${nightsWord(n)}. Показуємо нижче.`);
+  $('#rooms').scrollIntoView({ behavior:'smooth' });
+});
+
+/* ============ Room booking flow ============ */
+const bookingModal = $('#bookingModal'), bmIn = $('#bm-in'), bmOut = $('#bm-out'), bmGuests = $('#bm-guests');
+let currentRoom = null;
+
+function recalcBooking(){
+  const r = currentRoom; if(!r) return;
+  if(!bmIn.value || !bmOut.value) return;
+  const n = nights(bmIn.value, bmOut.value);
+  if(n >= 1){
+    $('#bmNights').textContent = `${n} ${nightsWord(n)} × ${money(r.price)}`;
+    $('#bmNightSum').textContent = money(n * r.price);
+    $('#bmTotal').textContent = money(n * r.price);
+  } else {
+    $('#bmNights').textContent = 'Оберіть коректні дати';
+    $('#bmNightSum').textContent = ''; $('#bmTotal').textContent = '—';
+  }
+}
+function openBooking(key){
+  currentRoom = ROOMS[key];
+  $('#bmTitle').textContent = currentRoom.name;
+  $('#bmMeta').textContent = currentRoom.meta;
+  bmIn.min = iso(today); bmOut.min = d(1);
+  bmIn.value = chosen.ci; bmOut.value = chosen.co; bmGuests.value = chosen.guests;
+  $('#bmForm').style.display = ''; $('#bmSuccess').classList.remove('show');
+  recalcBooking();
+  openModal(bookingModal);
+}
+document.querySelectorAll('.room-book').forEach(b => b.addEventListener('click', () => openBooking(b.dataset.room)));
+bmIn.addEventListener('change', () => { if(bmOut.value <= bmIn.value){ const x = new Date(bwIn.value); x.setDate(x.getDate()+1); bmOut.value = iso(x); } bmOut.min = bmIn.value; recalcBooking(); });
+bmOut.addEventListener('change', recalcBooking);
+bmGuests.addEventListener('change', recalcBooking);
+
+ $('#bmConfirm').addEventListener('click', () => {
+  const n = bmIn.value && bmOut.value ? nights(bmIn.value, bmOut.value) : 0;
+  if(n < 1) return toast('Перевірте дати заїзду та виїзду.', 'err');
+  const booking = {
+    id:'SW-' + (nextId++), room:currentRoom.name,
+    ci:bmIn.value, co:bmOut.value, guests:+bmGuests.value,
+    total:n * currentRoom.price, status:'Підтверджено'
+  };
+  bookings.push(booking);
+  $('#ddBadge').textContent = bookings.length;
+  $('#bmForm').style.display = 'none';
+  $('#bmNum').textContent = 'Бронювання № ' + booking.id;
+  $('#bmDates').textContent = `${currentRoom.name} · ${rangeText(booking.ci, booking.co)} · ${n} ${nightsWord(n)} · ${money(booking.total)}`;
+  $('#bmSuccess').classList.add('show');
+  toast(`Бронювання ${booking.id} створено. До зустрічі у «Світанку»!`);
+});
+ $('#bmSee').addEventListener('click', () => { closeModal(bookingModal); renderBookings(); openModal($('#bookingsModal')); });
+
+function renderBookings(){
+  $('#bookingsList').innerHTML = bookings.map(b => {
+    const n = nights(b.ci, b.co);
+    return `<div class="bitem">
+      <span class="bico">${CAL_ICON}</span>
+      <span class="bmain"><b>${b.room}</b><em>${rangeText(b.ci, b.co)} · ${n} ${nightsWord(n)} · ${b.guests} ${guestWord(b.guests)}</em></span>
+      <span class="bright"><b>${money(b.total)}</b><i class="badge ok">${b.status}</i></span>
+    </div>`;
+  }).join('');
+}
+
+/* ============ Services ============ */
+let currentSvc = null;
+document.querySelectorAll('.pcard').forEach(c => c.addEventListener('click', () => {
+  const s = SERVICES[c.dataset.svc]; currentSvc = s;
+  $('#svcKind').textContent = s.kind;
+  $('#svcTitle').textContent = s.title;
+  const si = $('#svcImg');
+  si.src = s.img; si.alt = s.title; watchImg(si);
+  $('#svcDesc').textContent = s.desc;
+  $('#svcPrice').textContent = s.price;
+  $('#svcList').innerHTML = s.list.map(i => `<li>${i}</li>`).join('');
+  openModal($('#serviceModal'));
+}));
+ $('#svcRequest').addEventListener('click', () => {
+  if(!currentSvc) return;
+  closeModal($('#serviceModal'));
+  $('#cfMsg').value = `Добрий день! Хочу замовити: ${currentSvc.title}. `;
+  $('#contacts').scrollIntoView({ behavior:'smooth' });
+  setTimeout(() => $('#cfName').focus({ preventScroll:true }), 700);
+  toast('Запит підготовлено у формі нижче — залиште контакт.');
+});
+
+/* ============ Gallery lightbox ============ */
+document.querySelectorAll('.mitem').forEach(m => m.addEventListener('click', () => {
+  const lb = $('#lbImg');
+  lb.src = m.querySelector('img').dataset.full;
+  watchImg(lb);
+  openModal($('#lightbox'));
+}));
+
+/* ============ Reviews carousel ============ */
+const track = $('#revTrack'), slides = track.children.length, dotsBox = $('#revDots');
+let idx = 0, timer;
+for(let i = 0; i < slides; i++){
+  const b = document.createElement('button');
+  b.setAttribute('aria-label', 'Відгук ' + (i+1));
+  b.addEventListener('click', () => { go(i); restart(); });
+  dotsBox.appendChild(b);
+}
+function go(i){
+  idx = (i + slides) % slides;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  dotsBox.querySelectorAll('button').forEach((d2,k) => d2.classList.toggle('active', k === idx));
+}
+function restart(){ clearInterval(timer); timer = setInterval(() => go(idx + 1), 6000); }
+ $('#revPrev').addEventListener('click', () => { go(idx - 1); restart(); });
+ $('#revNext').addEventListener('click', () => { go(idx + 1); restart(); });
+const revWrap = $('#revWrap');
+revWrap.addEventListener('mouseenter', () => clearInterval(timer));
+revWrap.addEventListener('mouseleave', restart);
+let sx = null;
+revWrap.addEventListener('pointerdown', e => sx = e.clientX);
+revWrap.addEventListener('pointerup', e => {
+  if(sx === null) return;
+  const dx = e.clientX - sx; sx = null;
+  if(Math.abs(dx) > 40){ go(idx + (dx < 0 ? 1 : -1)); restart(); }
+});
+go(0); restart();
+
+/* ============ Contact form ============ */
+ $('#cfForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = $('#cfName'), contact = $('#cfContact');
+  let ok = true;
+  [name, contact].forEach(f => { f.classList.remove('invalid'); });
+  if(!name.value.trim()){ name.classList.add('invalid'); ok = false; }
+  if(!contact.value.trim()){ contact.classList.add('invalid'); ok = false; }
+  if(!ok) return toast('Заповніть, будь ласка, ім\'я та контакт для відповіді.', 'err');
+  $('#cfSuccessTitle').textContent = `Дякуємо, ${name.value.trim()}! Повідомлення надіслано.`;
+  $('#cfForm').style.display = 'none';
+  $('#cfSuccess').classList.add('show');
+  toast('Повідомлення надіслано. Ми відповімо найближчим часом.');
+});
+['cfName','cfContact'].forEach(id => $('#' + id).addEventListener('input', e => e.target.classList.remove('invalid')));
+
+/* ============ Legal documents ============ */
+document.querySelectorAll('[data-doc]').forEach(b => b.addEventListener('click', () => {
+  const doc = DOCS[b.dataset.doc];
+  $('#docTitle').textContent = doc.title;
+  $('#docBody').innerHTML = doc.body;
+  openModal($('#docModal'));
+}));
+
+/* ============ Escape closes everything ============ */
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  document.querySelectorAll('.modal.open').forEach(closeModal);
+  dropdown.classList.remove('open'); userBtn.classList.remove('open');
+  toggleMenu(false);
+});
+
+/* ============ Scroll reveal + active nav ============ */
+const revealIO = new IntersectionObserver(entries => entries.forEach(en => {
+  if(en.isIntersecting){ en.target.classList.add('in'); revealIO.unobserve(en.target); }
+}), { threshold:.12 });
+document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+
+const navIO = new IntersectionObserver(entries => entries.forEach(en => {
+  if(en.isIntersecting){
+    document.querySelectorAll('.main-nav a').forEach(a =>
+      a.classList.toggle('active', a.dataset.nav === en.target.id));
+  }
+}), { rootMargin:'-40% 0px -55% 0px' });
+['about','rooms','services','contacts'].forEach(id => navIO.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
