@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ФінЛад — керуйте фінансами легко та безпечно</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234C6A87'/%3E%3Cpolyline points='6,20 12,20 15,11 20,24 23,16 27,16' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   Tokens
+================================================================ */
+:root{
+  --bg:#FFFFFF; --bg-soft:#F4F6F9;
+  --slate:#4C6A87; --slate-deep:#3B546D; --slate-tint:#EAF0F6;
+  --mint:#5FA78F; --mint-deep:#4F8F77; --mint-tint:#E7F2ED;
+  --amber:#B5824A; --amber-tint:#F6EFE4;
+  --rose:#B96A5A; --rose-tint:#F8EAE6;
+  --ink:#2B303A; --ink-2:#5A6472; --ink-3:#8B94A3;
+  --line:#E5EAF1;
+  --sh:0 10px 30px -14px rgba(44,62,84,.16);
+  --sh-lg:0 24px 60px -24px rgba(44,62,84,.28);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;overflow-x:clip;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+body.in-app #siteHeader,body.in-app #siteFooter{display:none}
+img,svg{display:block}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;background:none;border:0;color:inherit}
+input,select{font-family:inherit;color:var(--ink)}
+h1,h2,h3,h4{line-height:1.15;letter-spacing:-.02em}
+::selection{background:#D8EAE2}
+:focus-visible{outline:2px solid var(--slate);outline-offset:2px;border-radius:6px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#D3DAE3;border-radius:8px;border:2px solid #fff}
+::-webkit-scrollbar-track{background:transparent}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.w-full{width:100%;justify-content:center}
+
+/* ================================================================
+   Buttons / chips / cards
+================================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:14.5px;border-radius:12px;padding:12px 22px;border:1px solid transparent;transition:all .2s ease;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--slate);color:#fff}
+.btn-primary:hover{background:var(--slate-deep);transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(76,106,135,.55)}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--slate);color:var(--slate)}
+.btn-light{background:#fff;color:var(--slate)}
+.btn-light:hover{background:#EDF2F7;transform:translateY(-1px)}
+.btn-danger{background:var(--rose);color:#fff}
+.btn-danger:hover{background:#A55B4C}
+.btn-danger-outline{background:#fff;border-color:#EAD3CD;color:var(--rose)}
+.btn-danger-outline:hover{background:var(--rose);border-color:var(--rose);color:#fff}
+.btn-demo{background:#fff;border:1.5px dashed var(--mint);color:var(--mint-deep)}
+.btn-demo:hover{background:var(--mint-tint);border-style:solid;transform:translateY(-1px)}
+.btn-lg{padding:15px 26px;font-size:15.5px;border-radius:14px}
+.btn-sm{padding:9px 16px;font-size:13.5px;border-radius:11px}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.icon-btn{width:38px;height:38px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2);border:1px solid transparent;transition:all .2s;position:relative}
+.icon-btn:hover{background:var(--bg-soft);color:var(--slate)}
+.icon-btn svg{width:19px;height:19px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.ic-chip{width:40px;height:40px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.ic-chip svg{width:19px;height:19px}
+.ic-chip.lg{width:50px;height:50px;border-radius:15px}.ic-chip.lg svg{width:23px;height:23px}
+.ic-chip.slate{background:var(--slate-tint);color:var(--slate)}
+.ic-chip.mint{background:var(--mint-tint);color:var(--mint-deep)}
+.ic-chip.amber{background:var(--amber-tint);color:var(--amber)}
+.ic-chip.rose{background:var(--rose-tint);color:var(--rose)}
+.ic-chip.soft{background:rgba(255,255,255,.12);color:#CFE8DC}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--slate)}
+.eyebrow::before{content:'';width:24px;height:2px;background:var(--mint);border-radius:2px}
+.eyebrow.minty{color:#9AD3BD}
+.seg{display:inline-flex;background:var(--bg-soft);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px}
+.seg button{padding:7px 14px;border-radius:8px;font-weight:700;font-size:13px;color:var(--ink-3);transition:all .18s}
+.seg button.on{background:#fff;color:var(--slate);box-shadow:0 1px 4px rgba(44,62,84,.14)}
+.seg.full{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px}
+.select{padding:9px 13px;border-radius:11px;border:1px solid var(--line);background:#fff;font-size:13.5px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.link-more{display:inline-flex;align-items:center;gap:6px;color:var(--slate);font-weight:700;font-size:13.5px}
+.link-more svg{width:15px;height:15px;transition:transform .2s}
+.link-more:hover svg{transform:translateX(3px)}
+
+/* ================================================================
+   Header
+================================================================ */
+#siteHeader{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s}
+#siteHeader.scrolled{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(44,62,84,.25)}
+.head-in{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:11px}
+.brand svg{width:34px;height:34px}
+.brand span{font-family:'Unbounded',sans-serif;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.head-nav{display:flex;gap:34px}
+.nav-link{position:relative;font-size:12.5px;font-weight:800;letter-spacing:.1em;color:var(--ink-2);padding:6px 0;transition:color .2s}
+.nav-link::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:2.5px;border-radius:2px;background:var(--slate);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav-link:hover,.nav-link.active{color:var(--slate)}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.burger{display:none}
+.m-menu{display:none;position:absolute;left:0;right:0;top:72px;background:#fff;border-bottom:1px solid var(--line);padding:16px 24px 22px;flex-direction:column;gap:4px;box-shadow:var(--sh-lg)}
+.m-menu.open{display:flex}
+.m-menu a{padding:12px 8px;font-weight:800;font-size:13px;letter-spacing:.1em;color:var(--ink-2);border-bottom:1px solid var(--line)}
+.m-menu .m-btns{display:flex;gap:10px;margin-top:14px}
+.m-menu .m-btns .btn{flex:1}
+
+/* ================================================================
+   Hero
+================================================================ */
+#hero{padding:72px 0 96px;position:relative;overflow:hidden;scroll-margin-top:80px}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(620px 420px at 78% 28%, rgba(95,167,143,.09), transparent 70%),
+  radial-gradient(720px 520px at 8% 85%, rgba(76,106,135,.07), transparent 70%)}
+.hero-in{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--mint-tint);color:var(--mint-deep);font-size:13px;font-weight:700;padding:8px 15px;border-radius:99px}
+.pill em{width:8px;height:8px;border-radius:50%;background:var(--mint);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,167,143,.45)}70%{box-shadow:0 0 0 9px rgba(95,167,143,0)}100%{box-shadow:0 0 0 0 rgba(95,167,143,0)}}
+.hero-copy h1{font-size:clamp(34px,4.6vw,55px);font-weight:800;line-height:1.07;margin:22px 0 20px;max-width:560px}
+.hl{position:relative;display:inline-block;white-space:nowrap}
+.hl svg{position:absolute;left:-2%;bottom:-10px;width:104%;height:14px;overflow:visible}
+.hl path{fill:none;stroke:var(--mint);stroke-width:5;stroke-linecap:round;stroke-dasharray:220;stroke-dashoffset:220;animation:draw 1s ease .55s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-sub{font-size:17px;color:var(--ink-2);line-height:1.65;max-width:480px}
+.hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-checks{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;list-style:none}
+.hero-checks li{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.hero-checks svg{width:16px;height:16px;color:var(--mint)}
+.hero-stats{display:flex;margin-top:44px;flex-wrap:wrap;row-gap:18px}
+.hero-stats>div{padding:0 30px;border-left:1px solid var(--line)}
+.hero-stats>div:first-child{padding-left:0;border-left:0}
+.hero-stats b{display:block;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.hero-stats span{font-size:12.5px;color:var(--ink-3)}
+
+/* --- isometric mockup --- */
+.iso-wrap{position:relative;height:560px;display:flex;align-items:center;justify-content:center;perspective:1500px}
+.iso-scale{transform:scale(var(--sc,1))}
+.iso-scene{position:relative;width:470px;height:330px;transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(-40deg);transition:transform .35s ease-out}
+.iso-deco{position:absolute;inset:-36px;background:#F1F5F9;border-radius:26px;transform:translateZ(-90px) scale(1.22)}
+.iso-panel{position:absolute;inset:0;background:#fff;border-radius:18px;padding:22px 24px;transform-style:preserve-3d;box-shadow:0 4px 10px rgba(43,48,58,.05)}
+.iso-panel::before{content:'';position:absolute;inset:0;border-radius:18px;background:#DDE4ED;transform:translateZ(-15px)}
+.iso-panel::after{content:'';position:absolute;inset:0;border-radius:18px;background:#C9D3E0;transform:translateZ(-30px)}
+.ip-head{display:flex;align-items:center;gap:10px}
+.ip-ava{width:32px;height:32px;border-radius:50%;background:var(--slate);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ip-user{flex:1}.ip-user b{display:block;font-size:12.5px}.ip-user span{font-size:10.5px;color:var(--ink-3)}
+.ip-bell{position:relative;color:var(--ink-3)}.ip-bell svg{width:16px;height:16px}
+.ip-bell em{position:absolute;top:-2px;right:-2px;width:7px;height:7px;border-radius:50%;background:var(--rose);border:1.5px solid #fff}
+.ip-balance{margin-top:18px}
+.ip-balance>span{font-size:10.5px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.ip-balance strong{display:block;font-size:26px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+.ip-delta{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--mint-deep);margin-top:6px}
+.ip-delta svg{width:12px;height:12px}
+.ip-bars{display:flex;align-items:flex-end;gap:6px;height:74px;margin-top:16px}
+.ip-bars span{flex:1;background:var(--slate);opacity:.28;border-radius:4px}
+.ip-bars span.up{background:var(--mint);opacity:1}
+.ip-row{display:flex;gap:10px;margin-top:16px}
+.ip-tile{flex:1;background:var(--bg-soft);border-radius:11px;padding:9px 12px}
+.ip-tile span{font-size:10px;color:var(--ink-3);font-weight:600}
+.ip-tile b{display:block;font-size:13px;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+.ip-tile.mintT b{color:var(--mint-deep)}
+.iso-chip{position:absolute;transform:translateZ(var(--z,60px))}
+.iso-chip .in{display:flex;align-items:center;gap:11px;background:#fff;border-radius:14px;padding:11px 15px;box-shadow:0 22px 45px -18px rgba(43,48,58,.4);animation:bob 5.5s ease-in-out infinite}
+.iso-chip .in .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.iso-chip .in .ic svg{width:16px;height:16px}
+.iso-chip .in .ic.mint{background:var(--mint-tint);color:var(--mint-deep)}
+.iso-chip .in .ic.slate{background:var(--slate-tint);color:var(--slate)}
+.iso-chip .in>div span{display:block;font-size:10.5px;color:var(--ink-3);font-weight:600}
+.iso-chip .in>div b{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.iso-chip .in>div b.pos{color:var(--mint-deep)}
+.c1{top:-4%;right:-13%}.c1 .in{animation-duration:5s}
+.c2{top:42%;left:-17%}.c2 .in{animation-duration:6.5s;animation-delay:.8s}
+.c3{bottom:-6%;right:4%}.c3 .in{animation-duration:5.8s;animation-delay:.4s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.iso-shadow{position:absolute;left:16%;right:16%;bottom:7%;height:64px;border-radius:50%;background:rgba(43,48,58,.16);filter:blur(30px)}
+.mini-ring{position:relative;width:36px;height:36px}
+.mini-ring svg{width:36px;height:36px;transform:rotate(-90deg)}
+.mini-ring .tr{fill:none;stroke:#E7ECF3;stroke-width:4.5}
+.mini-ring .pr{fill:none;stroke:var(--mint);stroke-width:4.5;stroke-linecap:round}
+.mini-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:var(--mint-deep)}
+
+/* ================================================================
+   Landing sections
+================================================================ */
+.sec{padding:96px 0;scroll-margin-top:72px}
+.sec.soft{background:var(--bg-soft)}
+.sec-head{max-width:640px;margin-bottom:46px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.sec-head.center .eyebrow{justify-content:center}
+.sec-head h2{font-size:clamp(27px,3.6vw,38px);font-weight:800;margin-top:16px}
+.sec-head p{font-size:16px;color:var(--ink-2);line-height:1.65;margin-top:13px}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease var(--d,0s),transform .7s ease var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{padding:26px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.feat:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
+.feat h3{font-size:18px;font-weight:800;margin-top:17px}
+.feat>p{font-size:14.5px;color:var(--ink-2);line-height:1.62;margin-top:9px;flex:1}
+.feat-vis{margin-top:19px;background:var(--bg-soft);border-radius:14px;padding:16px;min-height:118px;display:flex;align-items:center}
+.feat-link{margin-top:17px;display:inline-flex;align-items:center;gap:7px;color:var(--slate);font-weight:800;font-size:14px;align-self:flex-start;transition:gap .2s}
+.feat-link:hover{gap:11px}
+.feat-link svg{width:16px;height:16px}
+.fv-donut{display:flex;gap:18px;align-items:center;width:100%}
+.fv-donut svg{width:88px;height:88px;transform:rotate(-90deg);flex:none}
+.fv-donut circle{fill:none;stroke-width:11}
+.fv-leg{flex:1;display:flex;flex-direction:column;gap:9px}
+.fv-leg>div{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.fv-leg i{width:9px;height:9px;border-radius:3px;flex:none}
+.fv-leg b{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--ink)}
+.fv-bars{width:100%;display:flex;flex-direction:column;gap:11px}
+.fv-bars>div{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-2)}
+.fv-bars span{width:78px;flex:none;font-weight:600}
+.fv-bars .bar{flex:1;height:8px;background:#E3E9F1;border-radius:99px;overflow:hidden}
+.fv-bars .bar em{display:block;height:100%;border-radius:99px}
+.fv-bars b{width:44px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+.fv-goal{display:flex;gap:15px;align-items:center}
+.fv-goal .txt{font-size:13px;color:var(--ink-2);line-height:1.5}
+.fv-goal .txt b{color:var(--ink)}
+.banks{margin-top:44px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.banks>span{font-size:13px;color:var(--ink-3);font-weight:600;margin-right:6px}
+.banks em{font-style:normal;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 15px;font-size:13px;font-weight:700;color:var(--ink-2)}
+
+/* security */
+.sec.dark{background:var(--slate);color:#fff}
+.sec-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.sec.dark h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-top:16px}
+.sec.dark .lead{font-size:16px;color:rgba(255,255,255,.78);line-height:1.65;margin-top:14px;max-width:460px}
+.sec-list{display:grid;grid-template-columns:1fr 1fr;gap:22px 26px;margin-top:34px}
+.sec-list>div{display:flex;gap:14px}
+.sec-list b{display:block;font-size:15px;font-weight:800}
+.sec-list span{font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.5;display:block;margin-top:4px}
+.sec-visual{position:relative;min-height:400px}
+.big-shield{position:absolute;inset:-10% -6%;opacity:.06;color:#fff}
+.big-shield svg{width:100%;height:100%}
+.cc{position:absolute;top:76px;left:50%;transform:translateX(-50%) rotate(-3.5deg);width:390px;max-width:100%;background:#fff;color:var(--ink);border-radius:20px;padding:24px 26px;box-shadow:0 40px 80px -30px rgba(20,32,46,.55)}
+.cc-top{display:flex;align-items:center;justify-content:space-between}
+.cc-brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px}
+.cc-brand svg{width:24px;height:24px}
+.cc-top svg.rot{transform:rotate(75deg);color:var(--ink-3);width:20px;height:20px}
+.cc-num{font-size:23px;font-weight:800;letter-spacing:.13em;margin:30px 0 26px;font-variant-numeric:tabular-nums}
+.cc-bot{display:flex;justify-content:space-between}
+.cc-bot span{display:block;font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.cc-bot b{font-size:13.5px;font-weight:800;margin-top:3px;display:block}
+.sec-chip{position:absolute;background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 24px 50px -20px rgba(20,32,46,.5);animation:bob 6s ease-in-out infinite}
+.sec-chip .ic{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center}
+.sec-chip .ic svg{width:17px;height:17px}
+.sec-chip .ic.mint{background:var(--mint-tint);color:var(--mint-deep)}
+.sec-chip .ic.slate{background:var(--slate-tint);color:var(--slate)}
+.sec-chip b{display:block;font-size:13.5px;font-weight:800}
+.sec-chip span{font-size:12px;color:var(--ink-3)}
+.sc1{top:-6px;right:3%}
+.sc2{bottom:2px;left:2%;animation-delay:1.1s}
+
+/* pricing */
+.bill-toggle{margin:30px auto 0;width:max-content;display:flex;background:var(--bg-soft);border:1px solid var(--line);border-radius:13px;padding:4px;gap:3px}
+.bill-toggle button{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;color:var(--ink-3);transition:all .2s}
+.bill-toggle button.on{background:#fff;color:var(--slate);box-shadow:0 2px 6px rgba(44,62,84,.15)}
+.bill-toggle em{font-style:normal;background:var(--mint);color:#fff;font-size:11px;font-weight:800;border-radius:99px;padding:3px 8px}
+.plan-grid{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:22px;align-items:stretch;margin-top:46px}
+.plan{position:relative;padding:30px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.plan:hover{transform:translateY(-4px)}
+.plan h3{font-size:18px;font-weight:800}
+.plan-sub{font-size:13.5px;color:var(--ink-3);margin-top:5px}
+.plan-price{margin-top:20px;display:flex;align-items:baseline;gap:7px}
+.plan-price b{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.plan-price span{font-size:14px;color:var(--ink-3);font-weight:600}
+.p-note{font-size:12.5px;color:var(--ink-3);margin-top:7px;min-height:18px}
+.plan ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.plan li{display:flex;gap:10px;font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.plan li svg{width:17px;height:17px;color:var(--mint);flex:none;margin-top:2px}
+.plan.hot{background:var(--slate);border-color:var(--slate);color:#fff;transform:translateY(-10px);box-shadow:0 30px 60px -25px rgba(76,106,135,.55)}
+.plan.hot:hover{transform:translateY(-14px)}
+.plan.hot .plan-sub,.plan.hot .p-note,.plan.hot .plan-price span{color:rgba(255,255,255,.72)}
+.plan.hot li{color:rgba(255,255,255,.88)}
+.plan.hot li svg{color:#9AD3BD}
+.hot-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--mint);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;border-radius:99px;padding:6px 14px;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(95,167,143,.7)}
+.pricing-note{text-align:center;font-size:13px;color:var(--ink-3);margin-top:30px}
+
+#cta{text-align:center;padding:100px 0}
+#cta h2{font-size:clamp(26px,3.6vw,38px);font-weight:800}
+#cta p{font-size:16px;color:var(--ink-2);margin-top:14px}
+#cta .btn{margin-top:30px}
+#cta .note{font-size:12.5px;color:var(--ink-3);margin-top:16px}
+
+/* footer */
+#siteFooter{border-top:1px solid var(--line);padding:64px 0 28px;background:#fff}
+.f-top{display:grid;grid-template-columns:1.15fr 1.85fr;gap:60px}
+.f-brand p{font-size:14px;color:var(--ink-2);line-height:1.65;margin-top:16px;max-width:300px}
+.f-soc{display:flex;gap:10px;margin-top:20px}
+.f-soc a{width:38px;height:38px;border:1px solid var(--line);border-radius:11px;display:flex;align-items:center;justify-content:center;color:var(--ink-2);transition:all .2s}
+.f-soc a:hover{color:var(--slate);border-color:var(--slate);transform:translateY(-2px)}
+.f-soc svg{width:17px;height:17px}
+.f-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.f-cols h4{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:15px}
+.f-cols a{display:block;font-size:14px;color:var(--ink-2);padding:5.5px 0;cursor:pointer;transition:color .18s}
+.f-cols a:hover{color:var(--slate)}
+.f-bot{border-top:1px solid var(--line);margin-top:46px;padding-top:24px;display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+
+/* ================================================================
+   Modals & toasts
+================================================================ */
+.modal-overlay{position:fixed;inset:0;background:rgba(43,48,58,.44);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:120;opacity:0;transition:opacity .22s}
+.modal-overlay.open{opacity:1}
+.modal{width:100%;max-width:440px;background:#fff;border-radius:20px;padding:26px;transform:translateY(16px) scale(.98);transition:transform .28s cubic-bezier(.2,.7,.3,1);max-height:92vh;overflow:auto;box-shadow:var(--sh-lg)}
+.modal-overlay.open .modal{transform:none}
+.m-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.m-title{display:flex;align-items:center;gap:13px}
+.auth-logo{width:44px;height:44px;border-radius:13px;background:var(--slate-tint);display:flex;align-items:center;justify-content:center;flex:none}
+.auth-logo svg{width:23px;height:23px}
+.m-head h3{font-size:18px;font-weight:800}
+.m-sub{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.m-text{font-size:14.5px;color:var(--ink-2);line-height:1.65}
+.m-text p+p{margin-top:10px}
+.m-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}
+.m-div{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--ink-3);font-size:12px;font-weight:600}
+.m-div::before,.m-div::after{content:'';flex:1;height:1px;background:var(--line)}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-soft);padding:4px;border-radius:12px;margin-bottom:20px;gap:3px}
+.auth-tabs button{padding:10px;border-radius:9px;font-weight:700;font-size:14px;color:var(--ink-3);transition:all .18s}
+.auth-tabs button.on{background:#fff;color:var(--slate);box-shadow:0 1px 4px rgba(44,62,84,.15)}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin-bottom:7px}
+.field input{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--line);font-size:14.5px;background:#fff;transition:border-color .18s,box-shadow .18s}
+.field input:focus{outline:none;border-color:var(--slate);box-shadow:0 0 0 3px rgba(76,106,135,.13)}
+.in-wrap{position:relative}
+.in-wrap input{padding-right:44px}
+.in-wrap .suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-weight:700}
+.in-wrap .eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);border-radius:9px}
+.in-wrap .eye:hover{color:var(--slate);background:var(--bg-soft)}
+.in-wrap .eye svg{width:17px;height:17px}
+.err{display:none;font-size:12.5px;color:var(--rose);margin-top:6px;font-weight:600}
+.field.bad .err{display:block}
+.field.bad input{border-color:var(--rose)}
+.m-hint{font-size:12.5px;color:var(--ink-3);text-align:center;margin-top:14px;line-height:1.5}
+.m-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);margin:4px 0 16px}
+.m-check input{margin-top:3px;accent-color:var(--slate);width:15px;height:15px;flex:none;cursor:pointer}
+.m-check button{color:var(--slate);font-weight:700;text-decoration:underline}
+.quick-row{display:flex;gap:8px;margin-bottom:14px}
+.quick-row button{flex:1;border:1px solid var(--line);border-radius:11px;padding:10px;font-weight:800;font-size:13.5px;color:var(--ink-2);transition:all .18s}
+.quick-row button:hover{border-color:var(--mint);color:var(--mint-deep);background:var(--mint-tint)}
+#toasts{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 40px))}
+.toast{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--mint);border-radius:14px;padding:14px 18px 14px 14px;font-size:14px;font-weight:600;line-height:1.45;box-shadow:var(--sh-lg);animation:tin .3s cubic-bezier(.2,.7,.3,1)}
+.toast .t-ic{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;background:var(--mint-tint);color:var(--mint-deep)}
+.toast .t-ic svg{width:15px;height:15px}
+.toast.info{border-left-color:var(--slate)}.toast.info .t-ic{background:var(--slate-tint);color:var(--slate)}
+.toast.warn{border-left-color:var(--amber)}.toast.warn .t-ic{background:var(--amber-tint);color:var(--amber)}
+.toast.danger{border-left-color:var(--rose)}.toast.danger .t-ic{background:var(--rose-tint);color:var(--rose)}
+.toast.out{opacity:0;transform:translateX(16px);transition:all .3s}
+@keyframes tin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ================================================================
+   App shell
+================================================================ */
+#sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:20px 16px;z-index:50}
+.app-brand{display:inline-flex;align-items:center;gap:11px;padding:2px 8px 18px}
+.app-brand svg{width:32px;height:32px}
+.app-brand span{font-family:'Unbounded',sans-serif;font-weight:600;font-size:15px}
+.app-brand.sm{display:none}
+.s-nav{display:flex;flex-direction:column;gap:4px}
+.nav-item{position:relative;display:flex;align-items:center;gap:13px;padding:11px 14px;border-radius:12px;font-size:14.5px;font-weight:600;color:var(--ink-2);transition:all .16s;text-align:left;width:100%}
+.nav-item svg{width:19px;height:19px;color:var(--ink-3);transition:color .16s}
+.nav-item:hover{background:var(--bg-soft)}
+.nav-item.on{background:var(--slate-tint);color:var(--slate);font-weight:800}
+.nav-item.on svg{color:var(--slate)}
+.nav-item.on::before{content:'';position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:3px;background:var(--slate)}
+.s-badge{margin-left:auto;background:var(--slate);color:#fff;font-size:11px;font-weight:800;border-radius:99px;padding:2px 9px;font-style:normal}
+.s-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:14px;display:flex;align-items:center;gap:11px}
+.s-user{flex:1;display:flex;align-items:center;gap:11px;min-width:0}
+.s-user b{display:block;font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-user span{font-size:11.5px;color:var(--ink-3)}
+.s-user span.demo{color:var(--mint-deep);font-weight:700}
+.ava{width:38px;height:38px;border-radius:50%;background:var(--slate);color:#fff;font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.app-main{margin-left:250px;min-height:100vh;background:var(--bg-soft);display:flex;flex-direction:column}
+.app-top{position:sticky;top:0;z-index:40;height:66px;display:flex;align-items:center;gap:16px;padding:0 26px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-search{flex:1;max-width:440px;display:flex;align-items:center;gap:9px;background:var(--bg-soft);border-radius:12px;padding:9px 13px;border:1px solid transparent;transition:all .18s}
+.top-search:focus-within{border-color:var(--slate);background:#fff}
+.top-search svg{width:16px;height:16px;color:var(--ink-3);flex:none}
+.top-search input{border:0;background:none;outline:none;flex:1;font-size:14px;min-width:0}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.bell-wrap{position:relative}
+.bell-wrap .dot{position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:var(--rose);border:2px solid #fff}
+.bell-panel{position:absolute;right:0;top:calc(100% + 12px);width:342px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh-lg);padding:8px;display:none;z-index:60}
+.bell-panel.open{display:block;animation:tin .2s ease}
+.bp-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 8px}
+.bp-head b{font-size:14px}
+.bp-head button{font-size:12px;font-weight:700;color:var(--slate)}
+.n-item{display:flex;gap:12px;padding:11px 12px;border-radius:11px;transition:background .15s}
+.n-item:hover{background:var(--bg-soft)}
+.n-item .ic-chip{width:36px;height:36px}.n-item .ic-chip svg{width:16px;height:16px}
+.n-item b{display:block;font-size:13.5px;font-weight:700;line-height:1.4}
+.n-item span{font-size:12px;color:var(--ink-3)}
+.app-content{padding:26px 30px 70px;max-width:1250px;width:100%;margin:0 auto}
+.app-content.enter{animation:enter .35s ease}
+@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#bottomNav{display:none}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.page-head h1{font-size:24px;font-weight:800}
+.page-head p{font-size:14px;color:var(--ink-3);margin-top:5px}
+.ph-actions{display:flex;gap:10px}
+
+/* overview */
+.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sum-card{transition:transform .22s,box-shadow .22s;cursor:default}
+.sum-card.linked{cursor:pointer}
+.sum-card.linked:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+.sum-top{display:flex;align-items:center;gap:11px}
+.sum-top .ic-chip{width:38px;height:38px}.sum-top .ic-chip svg{width:17px;height:17px}
+.sum-name{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.sum-val{font-size:28px;font-weight:800;margin-top:14px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sum-val.mintC{color:var(--mint-deep)}
+.sum-sub{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.delta{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800}
+.delta svg{width:14px;height:14px}
+.delta.mintC{color:var(--mint-deep)}
+.spark{width:100%;height:40px;margin-top:12px}
+.chart-card{margin-top:18px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.card-head h3{font-size:16.5px;font-weight:800}
+.card-sub{font-size:13px;color:var(--ink-3);margin-top:4px}
+.card-sub b{color:var(--ink);font-variant-numeric:tabular-nums}
+.chart-wrap{position:relative}
+.chart-wrap svg{width:100%;height:auto}
+.gl{stroke:#E9EEF4}
+.gl.base{stroke:#DFE6EE}
+.gt{fill:#98A2B3;font-size:11px;font-family:'Manrope',sans-serif}
+.b{fill:var(--slate);opacity:.82}
+.b.today{fill:var(--mint);opacity:1}
+.b.act{opacity:1}
+.chart-tip{position:absolute;transform:translate(-50%,calc(-100% - 12px));background:var(--ink);color:#fff;padding:8px 12px;border-radius:11px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;z-index:5}
+.chart-tip.show{opacity:1}
+.chart-tip b{display:block;font-size:13.5px;font-variant-numeric:tabular-nums}
+.chart-tip span{color:rgba(255,255,255,.7)}
+.chart-legend{display:flex;gap:18px;margin-top:10px;font-size:12.5px;color:var(--ink-3);font-weight:600}
+.chart-legend span{display:flex;align-items:center;gap:7px}
+.chart-legend em{width:10px;height:10px;border-radius:3px}
+.lg-s{background:var(--slate);opacity:.82}
+.lg-m{background:var(--mint)}
+.ov-grid{display:grid;grid-template-columns:1.9fr 1fr;gap:18px;margin-top:18px}
+.list-card .lc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:10px}
+.tx-row{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:center;padding:13px 10px;margin:0 -10px;border-bottom:1px solid var(--line);border-radius:12px;transition:background .15s}
+.tx-row:hover{background:var(--bg-soft)}
+.tx-row:last-child{border-bottom:0}
+.tx-info b{display:block;font-size:14.5px;font-weight:700}
+.tx-info span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.tx-amt{text-align:right}
+.tx-amt b{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.tx-amt.income b{color:var(--mint-deep)}
+.tx-amt span{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
+.aside-col{display:flex;flex-direction:column;gap:18px}
+.tip-card .t-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+.tip-card .t-label svg{width:14px;height:14px;color:var(--mint-deep)}
+.tip-card p{font-size:14px;color:var(--ink-2);line-height:1.6}
+.mini-b-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+.mini-b-row span{font-size:13px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-b-row em{font-style:normal;font-size:12px;font-weight:800;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.mini-b-row .bar{width:64px;flex:none}
+
+/* transactions */
+.tx-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.search{display:flex;align-items:center;gap:9px;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:9px 13px;flex:1;min-width:230px;transition:all .18s}
+.search:focus-within{border-color:var(--slate);background:#fff}
+.search svg{width:16px;height:16px;color:var(--ink-3)}
+.search input{border:0;background:none;outline:none;flex:1;font-size:14px;min-width:0}
+.fchips{display:flex;gap:8px}
+.fchip{padding:9px 15px;border-radius:11px;border:1px solid var(--line);background:#fff;font-size:13px;font-weight:700;color:var(--ink-2);transition:all .18s}
+.fchip em{font-style:normal;color:var(--ink-3);margin-left:6px;font-size:12px}
+.fchip.on{background:var(--slate);border-color:var(--slate);color:#fff}
+.fchip.on em{color:rgba(255,255,255,.75)}
+.tx-day{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 4px}
+.tx-day:first-child{margin-top:6px}
+.tx-foot{font-size:12.5px;color:var(--ink-3);padding-top:14px}
+.empty{text-align:center;padding:44px 20px;color:var(--ink-3)}
+.empty svg{width:38px;height:38px;margin:0 auto 14px;opacity:.6}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+
+/* budgets */
+.b-total-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.b-total-row .lbl{font-size:13px;color:var(--ink-3);font-weight:600}
+.b-total-row .big{font-size:26px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}
+.b-total-row .big span{font-size:15px;color:var(--ink-3);font-weight:600}
+.remain-pill{background:var(--mint-tint);color:var(--mint-deep);font-size:13px;font-weight:800;border-radius:99px;padding:9px 16px;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:#E7EDF4;border-radius:99px;overflow:hidden}
+.bar em{display:block;height:100%;border-radius:99px;transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.bar em.mint{background:var(--mint)}
+.bar em.amber{background:#D9A45B}
+.bar em.rose{background:var(--rose)}
+.bar.lg{height:10px;margin-top:16px}
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.b-card .b-head{display:flex;align-items:center;gap:13px}
+.b-card .b-head>div{flex:1;min-width:0}
+.b-card .b-head b{display:block;font-size:15px;font-weight:800}
+.b-card .b-head span{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.b-card .bar{margin-top:14px}
+.b-foot{display:flex;justify-content:space-between;margin-top:10px;font-size:12.5px;font-weight:700}
+.b-foot em{font-style:normal;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.st.mint{color:var(--mint-deep)}.st.amber{color:var(--amber)}.st.rose{color:var(--rose)}
+
+/* goals */
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g-card{display:flex;gap:22px;align-items:center}
+.g-ring{position:relative;width:118px;height:118px;flex:none}
+.g-ring svg{width:118px;height:118px;transform:rotate(-90deg)}
+.g-ring .tr{fill:none;stroke:#EAF0F6;stroke-width:10}
+.g-ring .pr{fill:none;stroke:var(--mint);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s ease .2s}
+.g-pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.g-pct b{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
+.g-pct span{font-size:10.5px;color:var(--ink-3);font-weight:600}
+.g-info{flex:1;min-width:0}
+.g-info>b{font-size:16.5px;font-weight:800;display:block}
+.g-amount{font-size:14px;color:var(--ink-3);margin-top:6px}
+.g-amount b{color:var(--ink);font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+.g-done-chip{display:inline-flex;align-items:center;gap:6px;background:var(--mint-tint);color:var(--mint-deep);font-size:12px;font-weight:800;border-radius:99px;padding:4px 11px;margin-top:8px}
+.g-done-chip svg{width:13px;height:13px}
+.g-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:11px;font-size:12.5px;color:var(--ink-3);font-weight:600}
+.g-meta span{display:flex;align-items:center;gap:6px}
+.g-meta svg{width:14px;height:14px}
+.g-info .btn{margin-top:15px}
+
+/* settings */
+.set-wrap{max-width:730px;display:flex;flex-direction:column;gap:18px}
+.set-card h3{font-size:16.5px;font-weight:800}
+.set-card .sc-sub{font-size:13px;color:var(--ink-3);margin-top:4px;margin-bottom:18px}
+.set-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.set-row:last-of-type{border-bottom:0}
+.set-row b{font-size:14.5px;font-weight:700;display:block}
+.set-row span{font-size:13px;color:var(--ink-3);display:block;margin-top:3px}
+.switch{position:relative;width:46px;height:27px;flex:none;cursor:pointer}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0}
+.switch em{position:absolute;inset:0;background:#D5DCE5;border-radius:99px;transition:background .2s}
+.switch em::after{content:'';position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(44,62,84,.25);transition:transform .2s}
+.switch input:checked+em{background:var(--mint)}
+.switch input:checked+em::after{transform:translateX(19px)}
+.sess-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--line)}
+.sess-row .ic-chip{width:36px;height:36px}.sess-row .ic-chip svg{width:16px;height:16px}
+.sess-row div{flex:1}
+.sess-row b{font-size:14px;font-weight:700;display:block}
+.sess-row span{font-size:12.5px;color:var(--ink-3)}
+.danger-card{border-color:#F0DAD4}
+.danger-card p{font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-bottom:16px}
+
+/* ================================================================
+   Responsive
+================================================================ */
+@media (max-width:1240px){.c2{left:-6%}.c1{right:-4%}}
+@media (max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:20px}
+  .iso-wrap{height:500px;--sc:.86}
+  .ov-grid{grid-template-columns:1fr}
+}
+@media (max-width:980px){
+  .sec-grid{grid-template-columns:1fr;gap:44px}
+  .plan-grid{grid-template-columns:1fr;max-width:460px;margin-left:auto;margin-right:auto}
+  .plan.hot{transform:none}.plan.hot:hover{transform:translateY(-4px)}
+  .sec-visual{min-height:420px}
+}
+@media (max-width:960px){
+  #sidebar{display:none}
+  .app-main{margin-left:0}
+  .app-brand.sm{display:inline-flex;padding:0}
+  #bottomNav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:70;background:#fff;border-top:1px solid var(--line);height:calc(62px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom)}
+  #bottomNav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;font-weight:700;color:var(--ink-3)}
+  #bottomNav button svg{width:21px;height:21px}
+  #bottomNav button.on{color:var(--slate)}
+  .app-content{padding-bottom:110px}
+}
+@media (max-width:920px){
+  .head-nav{display:none}
+  .burger{display:inline-flex}
+  .head-actions .btn-ghost,.head-actions .btn-demo{display:none}
+}
+@media (max-width:900px){.feat-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}.feat-vis{min-height:0}}
+@media (max-width:840px){.b-grid,.g-grid{grid-template-columns:1fr}}
+@media (max-width:680px){
+  .top-search{display:none}
+  #addTop span{display:none}
+  .sum-grid{grid-template-columns:1fr}
+  .sec{padding:70px 0}
+  .iso-wrap{height:400px;--sc:.62}
+  .g-card{flex-direction:column;text-align:center}
+  .g-meta{justify-content:center}
+  .hero-stats>div{padding:0 18px}
+  .f-cols{grid-template-columns:1fr 1fr}
+  .set-grid2{grid-template-columns:1fr}
+  .tx-toolbar .search{min-width:100%}
+  .fchips{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div id="toasts"></div>
+<div id="modalRoot"></div>
+
+<!-- ================= GLOBAL HEADER ================= -->
+<header id="siteHeader">
+  <div class="container head-in">
+    <a class="brand" href="#home" aria-label="ФінЛад — на головну">
+      <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>ФінЛад</span>
+    </a>
+    <nav class="head-nav">
+      <a href="#home" data-sec="hero" class="nav-link">ГОЛОВНА</a>
+      <a href="#features" data-sec="features" class="nav-link">МОЖЛИВОСТІ</a>
+      <a href="#pricing" data-sec="pricing" class="nav-link">ТАРИФИ</a>
+      <a href="#security" data-sec="security" class="nav-link">БЕЗПЕКА</a>
+    </nav>
+    <div class="head-actions">
+      <button class="btn btn-demo btn-sm js-demo" type="button"><i data-lucide="zap"></i>Демо-вхід</button>
+      <button class="btn btn-ghost btn-sm js-login">Увійти</button>
+      <button class="btn btn-primary btn-sm js-start">Почати безкоштовно</button>
+      <button class="icon-btn burger" id="burger" aria-label="Меню"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+  <div class="m-menu" id="mobileMenu">
+    <a href="#home">ГОЛОВНА</a>
+    <a href="#features">МОЖЛИВОСТІ</a>
+    <a href="#pricing">ТАРИФИ</a>
+    <a href="#security">БЕЗПЕКА</a>
+    <button class="btn btn-demo js-demo" type="button" style="margin-top:14px"><i data-lucide="zap"></i>Демо-вхід у кабінет</button>
+    <div class="m-btns">
+      <button class="btn btn-ghost js-login">Увійти</button>
+      <button class="btn btn-primary js-start">Почати безкоштовно</button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= LANDING ================= -->
+<main id="viewLanding">
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-in">
+      <div class="hero-copy">
+        <span class="pill reveal"><em></em>Синхронізація з 2 000+ банків України</span>
+        <h1 class="reveal" style="--d:.06s">Керуйте фінансами легко та <span class="hl">безпечно<svg viewBox="0 0 220 14" preserveAspectRatio="none"><path pathLength="220" d="M4 10 C 60 2, 155 2, 216 8"/></svg></span>.</h1>
+        <p class="hero-sub reveal" style="--d:.12s">ФінЛад — спокійний фінансовий менеджер: відстежуйте витрати, тримайте бюджети під контролем і наближайте свої цілі. Кожна гривня — під наглядом, кожне рішення — усвідомленим.</p>
+        <div class="hero-cta reveal" style="--d:.18s">
+          <button class="btn btn-primary btn-lg js-start">Почати безкоштовно <i data-lucide="arrow-right"></i></button>
+          <button class="btn btn-ghost btn-lg js-demo"><i data-lucide="zap"></i>Подивитись демо</button>
+        </div>
+        <ul class="hero-checks reveal" style="--d:.24s">
+          <li><i data-lucide="check"></i>Без картки</li>
+          <li><i data-lucide="check"></i>14 днів Premium у подарунок</li>
+          <li><i data-lucide="check"></i>Скасування будь-коли</li>
+        </ul>
+        <div class="hero-stats reveal" style="--d:.3s">
+          <div><b>38 тис.+</b><span>активних користувачів</span></div>
+          <div><b>₴4,2 млрд</b><span>витрат під контролем</span></div>
+          <div><b>4,9 / 5</b><span>середня оцінка</span></div>
+        </div>
+      </div>
+
+      <div class="iso-wrap reveal" style="--d:.15s">
+        <div class="iso-scale">
+          <div class="iso-shadow"></div>
+          <div class="iso-scene" id="isoScene">
+            <div class="iso-deco"></div>
+            <div class="iso-panel">
+              <div class="ip-head">
+                <span class="ip-ava">ОК</span>
+                <div class="ip-user"><b>Олексій К.</b><span>Premium профіль</span></div>
+                <span class="ip-bell"><i data-lucide="bell"></i><em></em></span>
+              </div>
+              <div class="ip-balance">
+                <span>Загальний баланс</span>
+                <strong>128 456,90 ₴</strong>
+                <span class="ip-delta"><i data-lucide="trending-up"></i>+2,4% за місяць</span>
+              </div>
+              <div class="ip-bars">
+                <span style="height:34%"></span><span style="height:48%"></span><span style="height:28%"></span><span style="height:55%"></span><span style="height:40%"></span><span style="height:62%"></span><span style="height:36%"></span><span style="height:50%"></span><span style="height:44%"></span><span style="height:68%"></span><span style="height:52%"></span><span style="height:74%"></span><span style="height:58%"></span><span class="up" style="height:88%"></span>
+              </div>
+              <div class="ip-row">
+                <div class="ip-tile mintT"><span>Доходи</span><b>+47 500 ₴</b></div>
+                <div class="ip-tile"><span>Витрати</span><b>15 486 ₴</b></div>
+              </div>
+            </div>
+            <div class="iso-chip c1" style="--z:75px"><div class="in">
+              <span class="ic mint"><i data-lucide="arrow-down-left"></i></span>
+              <div><span>Фриланс</span><b class="pos">+9 500 ₴</b></div>
+            </div></div>
+            <div class="iso-chip c2" style="--z:115px"><div class="in">
+              <span class="mini-ring">
+                <svg viewBox="0 0 36 36"><circle class="tr" cx="18" cy="18" r="15"/><circle class="pr" cx="18" cy="18" r="15" stroke-dasharray="94.2" stroke-dashoffset="20.7"/></svg>
+                <b>78%</b>
+              </span>
+              <div><span>Ціль «Відпустка»</span><b>до цілі близько</b></div>
+            </div></div>
+            <div class="iso-chip c3" style="--z:90px"><div class="in">
+              <span class="ic slate"><i data-lucide="shopping-basket"></i></span>
+              <div><span>Сільпо Експрес</span><b>−452,30 ₴</b></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="sec soft">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Можливості</span>
+        <h2>Усе для фінансового спокою</h2>
+        <p>Три інструменти, які перетворюють хаос у банківських виписках на ясну, зрозумілу картину.</p>
+      </div>
+      <div class="feat-grid">
+        <article class="card feat reveal">
+          <span class="ic-chip lg slate"><i data-lucide="pie-chart"></i></span>
+          <h3>Контроль витрат</h3>
+          <p>Кожна операція автоматично потрапляє у правильну категорію. Ви бачите, куди йде кожна гривня — без ручних таблиць.</p>
+          <div class="feat-vis">
+            <div class="fv-donut">
+              <svg viewBox="0 0 88 88">
+                <circle cx="44" cy="44" r="34" stroke="#E3E9F1"/>
+                <circle cx="44" cy="44" r="34" stroke="#4C6A87" stroke-dasharray="81 213.6" stroke-linecap="round"/>
+                <circle cx="44" cy="44" r="34" stroke="#5FA78F" stroke-dasharray="58 213.6" stroke-dashoffset="-85" stroke-linecap="round"/>
+              </svg>
+              <div class="fv-leg">
+                <div><i style="background:#4C6A87"></i>Продукти<b>38%</b></div>
+                <div><i style="background:#5FA78F"></i>Транспорт<b>27%</b></div>
+                <div><i style="background:#E3E9F1"></i>Інше<b>35%</b></div>
+              </div>
+            </div>
+          </div>
+          <button class="feat-link js-demo">Спробувати в дії<i data-lucide="arrow-right"></i></button>
+        </article>
+
+        <article class="card feat reveal" style="--d:.08s">
+          <span class="ic-chip lg mint"><i data-lucide="bar-chart-3"></i></span>
+          <h3>Детальна аналітика</h3>
+          <p>Наочні звіти за тиждень, місяць або рік: динаміка, тренди, порівняння періодів і структура витрат — зрозуміло з першого погляду.</p>
+          <div class="feat-vis">
+            <div class="fv-bars">
+              <div><span>Продукти</span><div class="bar"><em style="width:78%;background:#4C6A87"></em></div><b>38%</b></div>
+              <div><span>Транспорт</span><div class="bar"><em style="width:52%;background:#5FA78F"></em></div><b>27%</b></div>
+              <div><span>Кафе</span><div class="bar"><em style="width:34%;background:#4C6A87;opacity:.55"></em></div><b>17%</b></div>
+              <div><span>Інше</span><div class="bar"><em style="width:37%;background:#B5824A;opacity:.75"></em></div><b>18%</b></div>
+            </div>
+          </div>
+          <button class="feat-link js-demo">Спробувати в дії<i data-lucide="arrow-right"></i></button>
+        </article>
+
+        <article class="card feat reveal" style="--d:.16s">
+          <span class="ic-chip lg amber"><i data-lucide="target"></i></span>
+          <h3>Фінансові цілі</h3>
+          <p>Створюйте цілі, відкладайте щомісяця та бачьте прогрес. Платформа підкаже, скільки відкладати, щоб встигнути в строк.</p>
+          <div class="feat-vis">
+            <div class="fv-goal">
+              <span class="mini-ring" style="width:64px;height:64px">
+                <svg viewBox="0 0 64 64" style="width:64px;height:64px"><circle class="tr" cx="32" cy="32" r="26" stroke-width="7"/><circle class="pr" cx="32" cy="32" r="26" stroke-width="7" stroke-dasharray="163.4" stroke-dashoffset="58.8"/></svg>
+                <b style="font-size:13px">64%</b>
+              </span>
+              <p class="txt"><b>«Відпустка в Карпатах»</b><br>лишилось відкласти ₴5 500 — у срок, якщо відкладати по ₴3 000 щомісяця.</p>
+            </div>
+          </div>
+          <button class="feat-link js-demo">Спробувати в дії<i data-lucide="arrow-right"></i></button>
+        </article>
+      </div>
+
+      <div class="banks reveal">
+        <span>Працює з рахунками у:</span>
+        <em>Приват24</em><em>monobank</em><em>Sense</em><em>Universal Bank</em><em>А-Банк</em><em>PUMB</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section id="security" class="sec dark">
+    <div class="container sec-grid">
+      <div class="reveal">
+        <span class="eyebrow minty">Безпека</span>
+        <h2>Безпека банківського рівня — за замовчуванням</h2>
+        <p class="lead">Ваші дані захищені на кожному кроці: від входу в акаунт до зберігання історії операцій. Ми не економимо на тому, чого не видно.</p>
+        <div class="sec-list">
+          <div><span class="ic-chip soft"><i data-lucide="lock"></i></span><div><b>Шифрування AES-256</b><span>Дані захищені під час передачі та зберігання — за стандартом, яким користуються банки.</span></div></div>
+          <div><span class="ic-chip soft"><i data-lucide="fingerprint"></i></span><div><b>Двофакторна автентифікація</b><span>Код підтвердження та біометрія для кожного входу в акаунт.</span></div></div>
+          <div><span class="ic-chip soft"><i data-lucide="shield-check"></i></span><div><b>Відповідність PSD2 та GDPR</b><span>Працюємо лише з ліцензованими партнерами-провайдерами платежів.</span></div></div>
+          <div><span class="ic-chip soft"><i data-lucide="eye-off"></i></span><div><b>Жодного продажу даних</b><span>Ваші фінанси — тільки ваші. Ми заробляємо на підписках, а не на даних.</span></div></div>
+        </div>
+      </div>
+      <div class="sec-visual reveal" style="--d:.1s">
+        <div class="big-shield">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        </div>
+        <div class="cc">
+          <div class="cc-top">
+            <span class="cc-brand"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ФінЛад Card</span>
+            <i data-lucide="wifi" class="rot"></i>
+          </div>
+          <div class="cc-num">•••• •••• •••• 4291</div>
+          <div class="cc-bot">
+            <div><span>Власник</span><b>О. КОВАЛЕНКО</b></div>
+            <div><span>Термін дії</span><b>12/28</b></div>
+          </div>
+        </div>
+        <div class="sec-chip sc1"><span class="ic mint"><i data-lucide="shield-check"></i></span><div><b>AES-256</b><span>Зашифровано</span></div></div>
+        <div class="sec-chip sc2"><span class="ic slate"><i data-lucide="fingerprint"></i></span><div><b>2FA</b><span>Активна</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="sec">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Тарифи</span>
+        <h2>Чесні тарифи без дрібного шрифту</h2>
+        <p>Почніть безкоштовно й переходьте на Premium, коли будете готові. Скасувати можна будь-коли.</p>
+      </div>
+      <div class="bill-toggle reveal" id="billToggle">
+        <button class="on" data-b="m">Помісячно</button>
+        <button data-b="y">На рік <em>−20%</em></button>
+      </div>
+      <div class="plan-grid">
+        <div class="card plan reveal">
+          <h3>Старт</h3>
+          <p class="plan-sub">Для знайомства з платформою</p>
+          <div class="plan-price"><b>0 ₴</b><span>назавжди</span></div>
+          <p class="p-note">безкоштовно й без обмежень у часі</p>
+          <ul>
+            <li><i data-lucide="check"></i>До 100 транзакцій на місяць</li>
+            <li><i data-lucide="check"></i>1 рахунок</li>
+            <li><i data-lucide="check"></i>Базова аналітика витрат</li>
+            <li><i data-lucide="check"></i>1 фінансова ціль</li>
+          </ul>
+          <button class="btn btn-ghost w-full js-start">Почати безкоштовно</button>
+        </div>
+        <div class="card plan hot reveal" style="--d:.08s">
+          <span class="hot-badge">Найпопулярніший</span>
+          <h3>Плюс</h3>
+          <p class="plan-sub">Для повного контролю над грошима</p>
+          <div class="plan-price"><b id="pnPlus">189 ₴</b><span id="ppPlus">/міс</span></div>
+          <p class="p-note" id="pnotePlus">при оплаті помісячно</p>
+          <ul>
+            <li><i data-lucide="check"></i>Необмежені транзакції та рахунки</li>
+            <li><i data-lucide="check"></i>Бюджети й авто-категоризація</li>
+            <li><i data-lucide="check"></i>Розширена аналітика та звіти</li>
+            <li><i data-lucide="check"></i>Необмежені фінансові цілі</li>
+            <li><i data-lucide="check"></i>Пріоритетна підтримка 24/7</li>
+          </ul>
+          <button class="btn btn-light w-full js-start">Спробувати 14 днів безкоштовно</button>
+        </div>
+        <div class="card plan reveal" style="--d:.16s">
+          <h3>Сімейний</h3>
+          <p class="plan-sub">Для двох і більше</p>
+          <div class="plan-price"><b id="pnFam">349 ₴</b><span id="ppFam">/міс</span></div>
+          <p class="p-note" id="pnoteFam">при оплаті помісячно</p>
+          <ul>
+            <li><i data-lucide="check"></i>Усе з тарифу «Плюс»</li>
+            <li><i data-lucide="check"></i>До 6 учасників сім’ї</li>
+            <li><i data-lucide="check"></i>Спільні бюджети та цілі</li>
+            <li><i data-lucide="check"></i>Кишенькові з батьківським контролем</li>
+          </ul>
+          <button class="btn btn-ghost w-full js-start">Обрати Сімейний</button>
+        </div>
+      </div>
+      <p class="pricing-note">Усі нові акаунти отримують 14 днів Premium безкоштовно. Картка не потрібна.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="sec soft">
+    <div class="container reveal">
+      <h2>Готові взяти фінанси під контроль?</h2>
+      <p>Приєднуйтесь до 38 000 українців, які вже керують грошима спокійно.</p>
+      <button class="btn btn-primary btn-lg js-start">Почати безкоштовно <i data-lucide="arrow-right"></i></button>
+      <p class="note">14 днів Premium · Без картки · Скасування будь-коли</p>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer id="siteFooter">
+  <div class="container">
+    <div class="f-top">
+      <div class="f-brand">
+        <a class="brand" href="#home">
+          <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>ФінЛад</span>
+        </a>
+        <p>Спокійний фінансовий менеджер для українців. Бюджети, цілі та аналітика — в одному місці.</p>
+        <div class="f-soc">
+          <a href="#" data-soc aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" data-soc aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" data-soc aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" data-soc aria-label="YouTube"><i data-lucide="youtube"></i></a>
+          <a href="#" data-soc aria-label="Telegram"><i data-lucide="send"></i></a>
+        </div>
+      </div>
+      <div class="f-cols">
+        <div>
+          <h4>Продукт</h4>
+          <a href="#features">Можливості</a>
+          <a href="#pricing">Тарифи</a>
+          <a href="#security">Безпека</a>
+          <a href="#app">Демо-кабінет</a>
+        </div>
+        <div>
+          <h4>Компанія</h4>
+          <a data-info="about">Про нас</a>
+          <a data-info="blog">Блог</a>
+          <a data-info="careers">Кар’єра</a>
+          <a data-info="contacts">Контакти</a>
+        </div>
+        <div>
+          <h4>Правове</h4>
+          <a data-legal="privacy">Політика конфіденційності</a>
+          <a data-legal="terms">Умови використання</a>
+          <a data-legal="data">Безпека даних</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2025 ФінЛад. Усі права захищено.</span>
+      <span>Київ · Україна</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= DASHBOARD / WEB APP ================= -->
+<div id="viewApp" hidden>
+  <aside id="sidebar">
+    <a class="app-brand" href="#home">
+      <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>ФінЛад</span>
+    </a>
+    <nav class="s-nav">
+      <button class="nav-item" data-tab="overview"><i data-lucide="layout-dashboard"></i><span>Огляд</span></button>
+      <button class="nav-item" data-tab="transactions"><i data-lucide="arrow-left-right"></i><span>Транзакції</span><em class="s-badge" id="txBadge">17</em></button>
+      <button class="nav-item" data-tab="budgets"><i data-lucide="wallet"></i><span>Бюджети</span></button>
+      <button class="nav-item" data-tab="goals"><i data-lucide="target"></i><span>Цілі</span></button>
+      <button class="nav-item" data-tab="settings"><i data-lucide="settings"></i><span>Налаштування</span></button>
+    </nav>
+    <div class="s-foot">
+      <div class="s-user">
+        <span class="ava" id="sideAva">ОК</span>
+        <div><b id="sideName">Олексій Коваленко</b><span id="sidePlan">Premium профіль</span></div>
+      </div>
+      <button class="icon-btn" id="logoutBtn" title="Вийти"><i data-lucide="log-out"></i></button>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-top">
+      <a class="app-brand sm" href="#home">
+        <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <label class="top-search">
+        <i data-lucide="search"></i>
+        <input id="topSearch" placeholder="Пошук транзакцій… (Enter)">
+      </label>
+      <div class="top-actions">
+        <button class="btn btn-primary btn-sm" id="addTop"><i data-lucide="plus"></i><span>Додати</span></button>
+        <div class="bell-wrap">
+          <button class="icon-btn" id="bellBtn" aria-label="Сповіщення"><i data-lucide="bell"></i><em class="dot" id="bellDot"></em></button>
+          <div class="bell-panel" id="bellPanel">
+            <div class="bp-head"><b>Сповіщення</b><button id="markRead">Позначити прочитаними</button></div>
+            <div class="n-item"><span class="ic-chip mint"><i data-lucide="credit-card"></i></span><div><b>Платіж Netflix успішно списано — 320 ₴</b><span>2 години тому</span></div></div>
+            <div class="n-item"><span class="ic-chip slate"><i data-lucide="target"></i></span><div><b>Ціль «Відпустка в Карпатах» досягла 78%</b><span>вчора</span></div></div>
+            <div class="n-item"><span class="ic-chip amber"><i data-lucide="alert-circle"></i></span><div><b>Бюджет «Підписки» майже вичерпано (98%)</b><span>2 дні тому</span></div></div>
+          </div>
+        </div>
+        <button class="ava" id="avaBtn" title="Налаштування профілю">ОК</button>
+      </div>
+    </header>
+    <main id="appContent" class="app-content"></main>
+  </div>
+
+  <nav id="bottomNav">
+    <button data-tab="overview" class="on"><i data-lucide="layout-dashboard"></i>Огляд</button>
+    <button data-tab="transactions"><i data-lucide="arrow-left-right"></i>Транзакції</button>
+    <button data-tab="budgets"><i data-lucide="wallet"></i>Бюджети</button>
+    <button data-tab="goals"><i data-lucide="target"></i>Цілі</button>
+    <button data-tab="settings"><i data-lucide="settings"></i>Профіль</button>
+  </nav>
+</div>
+
+<script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+<script>
+/* ===================================================================
+   ФінЛад — single-file demo of a financial platform.
+   Sections: helpers → state → toasts → modals → auth/demo →
+   charts → app tabs → routing → landing wiring → init.
+=================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const DAY = 86400000;
+const MG = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+const icons = () => { if (window.lucide) lucide.createIcons(); };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const sod = ts => { const d = new Date(ts); d.setHours(0,0,0,0); return d.getTime(); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+const RATES = { UAH:{r:1,s:'₴'}, USD:{r:41.3,s:'$'}, EUR:{r:44.6,s:'€'} };
+function fmtMoney(v, o = {}){
+  const c = RATES[state.currency];
+  const val = v * c.r;
+  const dec = o.dec !== undefined ? o.dec : ((Math.round(val*100) % 100) !== 0 ? 2 : 0);
+  return new Intl.NumberFormat('uk-UA',{minimumFractionDigits:dec,maximumFractionDigits:dec}).format(val) + ' ' + c.s;
+}
+function relDay(ts){
+  const diff = Math.round((sod(Date.now()) - sod(ts)) / DAY);
+  if (diff === 0) return 'Сьогодні';
+  if (diff === 1) return 'Вчора';
+  const d = new Date(ts);
+  return `${d.getDate()} ${MG[d.getMonth()]}`;
+}
+function shortDate(ts){ const d = new Date(ts); return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}`; }
+function todayLabel(){
+  const d = new Date();
+  const wd = ['неділя','понеділок','вівторок','середа','четвер','п’ятниця','субота'][d.getDay()];
+  return `${wd[0].toUpperCase()}${wd.slice(1)}, ${d.getDate()} ${MG[d.getMonth()]}`;
+}
+function greetLine(){
+  const h = new Date().getHours();
+  const part = h < 5 ? 'Доброї ночі' : h < 12 ? 'Доброго ранку' : h < 18 ? 'Доброго дня' : 'Доброго вечора';
+  return `${part}, ${esc(state.user.name.split(' ')[0])}`;
+}
+function todayISO(){
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+/* ---------- State + session persistence ---------- */
+const RAW = [
+  [0,'Сільпо Експрес','Продукти','shopping-basket',452.30,'slate'],
+  [1,'Кав’ярня «Шоколад»','Кафе та розваги','coffee',275.50,'amber'],
+  [2,'Сільпо','Продукти','shopping-basket',1245.60,'slate'],
+  [3,'Зарплата — ТОВ «Клімат-Сервіс»','Зарплата','briefcase',38000,'mint','income'],
+  [4,'Netflix','Підписки','clapperboard',320,'rose'],
+  [4,'WOG','Транспорт','fuel',1850,'amber'],
+  [5,'Кінотеатр «Планета Кіно»','Кафе та розваги','film',640,'amber'],
+  [7,'Rozetka','Техніка','cpu',4599,'slate'],
+  [8,'Аптека «Подорожник»','Здоров’я','pill',412.40,'mint'],
+  [9,'Київводоканал','Комунальні','droplets',543.20,'slate'],
+  [10,'АТБ','Продукти','shopping-basket',986.40,'slate'],
+  [11,'Фриланс — лендінг для студії','Фриланс','code',9500,'mint','income'],
+  [12,'Київенерго','Комунальні','zap',2340.25,'slate'],
+  [13,'Varus','Продукти','shopping-basket',1132.75,'slate'],
+  [15,'Spotify','Підписки','music',169,'rose'],
+  [16,'Нова Пошта','Транспорт','package',220,'amber'],
+  [18,'Київстар','Зв’язок','smartphone',300,'slate'],
+];
+const state = {
+  currency: 'UAH',
+  balance: 128456.90,
+  auth: null, // null | 'login' | 'reg' | 'demo'
+  user: { name:'Олексій Коваленко', email:'oleksiy@finlad.ua' },
+  settings: { twofa:true, push:true, emailNotif:false },
+  ui: { tab:'overview', txSearch:'', txType:'all', txCat:'' },
+  transactions: RAW.map(r => ({
+    id: uid(), name: r[1], cat: r[2], icon: r[3],
+    amount: r[4], tint: r[5], type: r[6] || 'expense',
+    ts: sod(Date.now()) - r[0]*DAY + 12*3600000, method: 'Картка · 4291'
+  })),
+  budgets: [
+    { cat:'Продукти', limit:6000 },
+    { cat:'Кафе та розваги', limit:2500 },
+    { cat:'Транспорт', limit:2500 },
+    { cat:'Комунальні', limit:3500 },
+    { cat:'Техніка', limit:5000 },
+    { cat:'Здоров’я', limit:1500 },
+    { cat:'Підписки', limit:500 },
+  ],
+  goals: [
+    { id:'g1', name:'Відпустка в Карпатах', target:25000, saved:19500, monthly:3000, deadline:'15 вересня' },
+    { id:'g2', name:'Ноутбук для роботи', target:55000, saved:30250, monthly:4000, deadline:'30 листопада' },
+    { id:'g3', name:'Резервний фонд', target:90000, saved:76500, monthly:5000, deadline:'постійна' },
+    { id:'g4', name:'Зимові шини', target:16000, saved:4800, monthly:1200, deadline:'1 жовтня' },
+  ]
+};
+const STORE_KEY = 'finlad_session_v1';
+function saveSession(){ try { localStorage.setItem(STORE_KEY, JSON.stringify({ auth: state.auth, user: state.user })); } catch(e){} }
+function loadSession(){
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+    if (s && s.auth) { state.auth = s.auth; if (s.user && s.user.name) state.user = { ...state.user, ...s.user }; }
+  } catch(e){}
+}
+const BCATICON = { 'Продукти':'shopping-basket','Кафе та розваги':'coffee','Транспорт':'bus','Комунальні':'receipt','Техніка':'cpu','Здоров’я':'pill','Підписки':'tv' };
+const EXP_CATS = [...Object.keys(BCATICON), 'Зв’язок', 'Інше'];
+const INC_CATS = ['Зарплата','Фриланс','Інвестиції','Інше'];
+
+const txSorted = () => [...state.transactions].sort((a,b) => b.ts - a.ts);
+function stats30(){
+  const from = sod(Date.now()) - 29*DAY;
+  const t = state.transactions.filter(x => x.ts >= from);
+  return {
+    inc: t.filter(x => x.type==='income').reduce((s,x)=>s+x.amount,0),
+    exp: t.filter(x => x.type==='expense').reduce((s,x)=>s+x.amount,0)
+  };
+}
+function computeBudgets(){
+  const from = sod(Date.now()) - 29*DAY;
+  return state.budgets.map(b => {
+    const spent = state.transactions.filter(t => t.type==='expense' && t.cat===b.cat && t.ts>=from).reduce((s,t)=>s+t.amount,0);
+    const pct = Math.min(100, Math.round(spent / b.limit * 100));
+    const st = pct > 90 ? 'rose' : pct >= 70 ? 'amber' : 'mint';
+    return { ...b, spent, pct, st, icon: BCATICON[b.cat] || 'wallet' };
+  });
+}
+function advisorTip(){
+  const bs = computeBudgets().slice().sort((a,b) => b.pct - a.pct);
+  if (bs[0] && bs[0].pct >= 90) {
+    const rem = Math.max(0, bs[0].limit - bs[0].spent);
+    return `Бюджет «${esc(bs[0].cat)}» використано на ${bs[0].pct}%. Залишок — ${fmtMoney(rem)}. Варто сповільнитися або переглянути ліміт.`;
+  }
+  const g = state.goals.slice().sort((a,b) => b.saved/b.target - a.saved/a.target)[0];
+  if (g && g.saved / g.target >= 0.7) {
+    return `Ціль «${esc(g.name)}» майже досягнута (${Math.round(g.saved/g.target*100)}%). Лишилося ${fmtMoney(g.target - g.saved)} — поповніть її вже сьогодні.`;
+  }
+  return 'Спробуйте правило 50/30/20: 50% доходу — потреби, 30% — бажання, 20% — заощадження й цілі.';
+}
+
+/* ---------- Toasts ---------- */
+function toast(msg, type = 'success'){
+  const map = { success:'check-circle', info:'info', warn:'alert-circle', danger:'x-circle' };
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = `<span class="t-ic"><i data-lucide="${map[type]}"></i></span><span>${msg}</span>`;
+  $('#toasts').appendChild(t);
+  icons();
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 320); }, 3800);
+}
+
+/* ---------- Modal system (stackable, un-stuckable) ---------- */
+function openModal(html, onMount){
+  const root = $('#modalRoot');
+  const ov = document.createElement('div');
+  ov.className = 'modal-overlay';
+  ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+  root.appendChild(ov);
+  requestAnimationFrame(() => ov.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+  let downOnBackdrop = false;
+  ov.addEventListener('mousedown', e => { downOnBackdrop = (e.target === ov); });
+  ov.addEventListener('click', e => {
+    if (e.target === ov && downOnBackdrop) { closeModal(); return; }
+    if (e.target.closest('[data-close]')) closeModal();
+  });
+  if (onMount) onMount($('.modal', ov));
+  setTimeout(() => {
+    const f = $('.modal input:not([type=checkbox])', ov);
+    if (f && document.body.contains(f)) f.focus();
+  }, 260);
+  icons();
+  return ov;
+}
+function closeModal(){
+  const ov = $('#modalRoot').lastElementChild;
+  if (!ov) return;
+  ov.classList.remove('open');
+  setTimeout(() => {
+    ov.remove();
+    if (!$('#modalRoot').firstElementChild) document.body.style.overflow = '';
+  }, 220);
+}
+function closeAllModals(){
+  $$('#modalRoot .modal-overlay').forEach(o => o.remove());
+  document.body.style.overflow = '';
+}
+function openConfirm({ title, text, ok = 'Підтвердити', danger = false, onOk }){
+  openModal(`
+    <div class="m-head"><h3>${title}</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <p class="m-text">${text}</p>
+    <div class="m-actions">
+      <button class="btn btn-ghost" data-close>Скасувати</button>
+      <button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" id="mOk">${ok}</button>
+    </div>
+  `, m => { $('#mOk', m).onclick = () => { closeModal(); onOk && onOk(); }; });
+}
+function infoModal(title, html){
+  openModal(`
+    <div class="m-head"><h3>${title}</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <div class="m-text">${html}</div>
+    <div class="m-actions"><button class="btn btn-primary" data-close>Зрозуміло</button></div>
+  `);
+}
+const LEGAL = {
+  privacy: { t:'Політика конфіденційності', h:`<p>Ми збираємо лише ті дані, які необхідні для роботи сервісу: операції за вашою згодою, email та налаштування. Ми не продаємо персональні дані третім сторонам і не використовуємо їх для реклами. Експортувати або видалити свої дані можна будь-коли в налаштуваннях.</p><p>Повна версія політики набуває чинності з моменту реєстрації та оновлюється з попереднім повідомленням на email.</p>` },
+  terms: { t:'Умови використання', h:`<p>Використовуючи ФінЛад, ви погоджуєтесь користуватися сервісом чесно: без спроб зламу, фроду та порушення прав інших людей.</p><p>Тариф можна змінити або скасувати будь-коли — кошти за невикористаний період повертаємо пропорційно протягом 5 робочих днів.</p>` },
+  data: { t:'Безпека даних', h:`<p>Усі дані шифруються за стандартом AES-256 у спокої та TLS 1.3 під час передачі. Резервні копії створюються щогодини у георозподілених дата-центрах у ЄС.</p><p>Доступ інженерів до даних користувачів можливий лише за запитом безпеки та з повним аудиторним слідом.</p>` },
+};
+const INFO = {
+  about: { t:'Про нас', h:`<p>ФінЛад — український продукт, створений 2021 року командою з 24 людей. Ми віримо, що фінансова ясність — це не суворі обмеження, а спокій. Сьогодні платформа щодня допомагає 38 000+ користувачам.</p>` },
+  blog: { t:'Блог', h:`<p>Ми пишемо про особисті фінанси простою мовою: як вести бюджет, заощаджувати на підписках і не зливати гроші на імпульсивні покупки. Нові статті — щовівторка.</p>` },
+  careers: { t:'Кар’єра', h:`<p>Нині відкриті вакансії: Frontend-інженер, Product Designer, Support Specialist. Надсилайте резюме на jobs@finlad.ua — відповідаємо протягом тижня.</p>` },
+  contacts: { t:'Контакти', h:`<p>Пошта: hello@finlad.ua<br>Підтримка 24/7 у чаті застосунку та в Telegram: @finlad_support.<br>Середній час відповіді — 4 хвилини.</p>` },
+};
+
+/* ---------- Auth & demo ---------- */
+let gateShown = false; // soft gate: prompt once per app entry
+function enterDemo(){
+  state.auth = 'demo';
+  saveSession();
+  closeAllModals();
+  updateIdentity();
+  toast('Демо-режим: перед вами кабінет зареєстрованого користувача', 'info');
+  if (location.hash.startsWith('#app')) route(); else location.hash = '#app';
+}
+function openAuth(tab = 'login'){
+  let mode = tab === 'login' ? 'login' : 'reg';
+  const fieldsHtml = (t) => {
+    const isLogin = t === 'login';
+    return `
+      ${!isLogin ? `<div class="field" id="f-name"><label>Ім’я та прізвище</label><input id="aName" placeholder="Напр., Марія Шевченко"><span class="err"></span></div>` : ''}
+      <div class="field" id="f-email"><label>Email</label><input id="aEmail" type="email" placeholder="you@example.ua"><span class="err"></span></div>
+      <div class="field" id="f-pass"><label>Пароль</label>
+        <div class="in-wrap">
+          <input id="aPass" type="password" placeholder="Мінімум 6 символів">
+          <button class="eye" id="aEye" type="button" aria-label="Показати пароль"><i data-lucide="eye"></i></button>
+        </div><span class="err"></span>
+      </div>
+      ${!isLogin ? `<div class="m-check"><input type="checkbox" id="aTerms"> <span>Погоджуюсь з <button type="button" data-legal="terms">Умовами використання</button> та <button type="button" data-legal="privacy">Політикою конфіденційності</button></span></div>` : ''}
+      <button class="btn btn-primary w-full" id="aSubmit" type="button">${isLogin ? 'Увійти' : 'Створити акаунт'}</button>
+      <div class="m-div"><span>або</span></div>
+      <button class="btn btn-demo w-full" id="aDemo" type="button"><i data-lucide="zap"></i>Швидкий демо-вхід без реєстрації</button>
+      <p class="m-hint">Демо-версія: дані не надсилаються на сервер і не зберігаються.</p>`;
+  };
+  openModal(`
+    <div class="m-head">
+      <div class="m-title">
+        <span class="auth-logo"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#4C6A87"/><polyline points="6,20 12,20 15,11 20,24 23,16 27,16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><h3 id="authTitle">${mode === 'login' ? 'Вітаємо знову' : 'Створіть акаунт'}</h3><p class="m-sub" id="authSub">${mode === 'login' ? 'Увійдіть, щоб продовжити' : '14 днів Premium — безкоштовно'}</p></div>
+      </div>
+      <button class="icon-btn" data-close><i data-lucide="x"></i></button>
+    </div>
+    <div class="auth-tabs">
+      <button type="button" data-t="login" class="${mode === 'login' ? 'on' : ''}">Увійти</button>
+      <button type="button" data-t="reg" class="${mode === 'reg' ? 'on' : ''}">Реєстрація</button>
+    </div>
+    <div id="authFields">${fieldsHtml(mode)}</div>
+  `, m => {
+    m.addEventListener('click', e => {
+      const tb = e.target.closest('.auth-tabs button');
+      if (tb && !tb.classList.contains('on')) {
+        mode = tb.dataset.t === 'login' ? 'login' : 'reg';
+        $$('.auth-tabs button', m).forEach(x => x.classList.toggle('on', x === tb));
+        $('#authFields', m).innerHTML = fieldsHtml(mode);
+        $('#authTitle', m).textContent = mode === 'login' ? 'Вітаємо знову' : 'Створіть акаунт';
+        $('#authSub', m).textContent = mode === 'login' ? 'Увійдіть, щоб продовжити' : '14 днів Premium — безкоштовно';
+        icons();
+        return;
+      }
+      if (e.target.closest('#aDemo')) { enterDemo(); return; }
+      if (e.target.closest('#aEye')) {
+        const p = $('#aPass', m);
+        p.type = p.type === 'password' ? 'text' : 'password';
+        $('#aEye', m).innerHTML = `<i data-lucide="${p.type === 'password' ? 'eye' : 'eye-off'}"></i>`;
+        icons();
+        return;
+      }
+      if (e.target.closest('#aSubmit')) submit();
+    });
+    function submit(){
+      let ok = true;
+      const bad = (id, msg) => { const f = $('#f-' + id, m); if (!f) return; f.classList.add('bad'); $('.err', f).textContent = msg; ok = false; };
+      $$('.field', m).forEach(f => f.classList.remove('bad'));
+      const email = $('#aEmail', m).value.trim();
+      const pass = $('#aPass', m).value;
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad('email', 'Введіть коректний email');
+      if (pass.length < 6) bad('pass', 'Пароль має містити щонайменше 6 символів');
+      if (mode === 'reg' && $('#aName', m).value.trim().length < 2) bad('name', 'Вкажіть ім’я та прізвище');
+      if (mode === 'reg' && !$('#aTerms', m).checked) { toast('Підтвердьте згоду з умовами використання', 'warn'); ok = false; }
+      if (!ok) return;
+      if (mode === 'reg') {
+        state.user.name = $('#aName', m).value.trim();
+      }
+      state.user.email = email;
+      state.auth = mode;
+      saveSession();
+      closeAllModals();
+      updateIdentity();
+      const first = state.user.name.split(' ')[0];
+      toast(mode === 'login' ? `З поверненням, ${esc(first)}!` : `Акаунт створено. Вітаємо, ${esc(first)}!`);
+      if (location.hash.startsWith('#app')) route(); else location.hash = '#app';
+    }
+  });
+}
+
+/* ---------- Add transaction ---------- */
+function openAddTx(){
+  const sym = RATES[state.currency].s;
+  openModal(`
+    <div class="m-head"><h3>Додати транзакцію</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <div class="seg full" id="atType">
+      <button type="button" data-t="expense" class="on">Витрата</button>
+      <button type="button" data-t="income">Дохід</button>
+    </div>
+    <div class="field" id="f-amount"><label>Сума</label><div class="in-wrap"><input id="atAmount" type="number" min="1" step="0.01" placeholder="0,00"><span class="suffix">${sym}</span></div><span class="err"></span></div>
+    <div class="field"><label>Категорія</label><select id="atCat" class="select w-full"></select></div>
+    <div class="field" id="f-name"><label>Назва / отримувач</label><input id="atName" placeholder="Напр., Сільпо"><span class="err"></span></div>
+    <div class="field"><label>Дата</label><input id="atDate" type="date" value="${todayISO()}"></div>
+    <button class="btn btn-primary w-full" id="atSave">Зберегти транзакцію</button>
+  `, m => {
+    let type = 'expense';
+    const fillCats = () => {
+      $('#atCat', m).innerHTML = (type === 'income' ? INC_CATS : EXP_CATS).map(c => `<option>${c}</option>`).join('');
+    };
+    fillCats();
+    $$('#atType button', m).forEach(b => b.onclick = () => {
+      type = b.dataset.t;
+      $$('#atType button', m).forEach(x => x.classList.toggle('on', x === b));
+      fillCats();
+    });
+    $('#atSave', m).onclick = () => {
+      let ok = true;
+      const amount = parseFloat($('#atAmount', m).value);
+      const name = $('#atName', m).value.trim();
+      $('#f-amount', m).classList.remove('bad'); $('#f-name', m).classList.remove('bad');
+      if (!amount || amount <= 0) { $('#f-amount', m).classList.add('bad'); $('.err', $('#f-amount', m)).textContent = 'Вкажіть суму більше нуля'; ok = false; }
+      if (!name) { $('#f-name', m).classList.add('bad'); $('.err', $('#f-name', m)).textContent = 'Вкажіть назву операції'; ok = false; }
+      if (!ok) return;
+      const cat = $('#atCat', m).value;
+      const dv = $('#atDate', m).value;
+      const ts = dv ? new Date(dv + 'T12:00:00').getTime() : Date.now();
+      const icon = type === 'income' ? 'briefcase' : (BCATICON[cat] || (cat === 'Зв’язок' ? 'smartphone' : 'more-horizontal'));
+      state.transactions.unshift({ id: uid(), name, cat, icon, amount, tint: type === 'income' ? 'mint' : 'slate', type, ts, method: 'Картка · 4291' });
+      state.balance += type === 'income' ? amount : -amount;
+      $('#txBadge').textContent = state.transactions.length;
+      closeModal();
+      toast(`${type === 'income' ? 'Дохід' : 'Витрату'} «${esc(name)}» на ${fmtMoney(amount)} додано`);
+      if (!$('#viewApp').hidden) renderTab(state.ui.tab);
+    };
+  });
+}
+
+/* ---------- Charts ---------- */
+let SYN30 = null;
+function syn30(){
+  if (SYN30) return SYN30;
+  const rnd = mulberry32(20240612);
+  const arr = [];
+  const start = sod(Date.now()) - 29*DAY;
+  for (let i = 0; i < 30; i++){
+    const ts = start + i*DAY;
+    const wd = new Date(ts).getDay();
+    let v = 240 + rnd()*560;
+    if (wd === 6 || wd === 0) v *= 1.5;
+    if (rnd() > 0.9) v += 650 + rnd()*520;
+    arr.push({ ts, v: Math.round(v/10)*10 });
+  }
+  SYN30 = arr;
+  return arr;
+}
+function chartItems(days){
+  const real = {};
+  state.transactions.forEach(t => {
+    if (t.type !== 'expense') return;
+    const k = sod(t.ts);
+    real[k] = (real[k] || 0) + t.amount;
+  });
+  return syn30().slice(-days).map(d => {
+    const k = sod(d.ts);
+    return real[k] != null ? { ts: d.ts, v: real[k] } : d;
+  });
+}
+const yLabel = v => v >= 1000 ? String(v/1000).replace('.', ',') + ' тис.' : String(v);
+
+function renderChartInto(root, days){
+  const items = chartItems(days);
+  const total = items.reduce((s,i) => s + i.v, 0);
+  const avg = total / items.length;
+  const W = 760, H = 250, pL = 46, pR = 12, pT = 16, pB = 30;
+  const iw = W - pL - pR, ih = H - pT - pB;
+  const maxRaw = Math.max(...items.map(i => i.v));
+  const step = maxRaw > 2200 ? 1000 : maxRaw > 1100 ? 500 : 250;
+  const max = Math.max(step, Math.ceil(maxRaw * 1.12 / step) * step);
+  const slot = iw / items.length;
+  const bw = Math.min(days > 15 ? 20 : 40, slot * .58);
+  let grid = '';
+  [1, .5].forEach(f => {
+    const y = pT + ih - ih * f;
+    grid += `<line class="gl" x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}"/><text class="gt" x="${pL-9}" y="${y+4}" text-anchor="end">${yLabel(max*f)}</text>`;
+  });
+  grid += `<line class="gl base" x1="${pL}" y1="${pT+ih}" x2="${W-pR}" y2="${pT+ih}"/>`;
+  let bars = '', labels = '';
+  const lstep = days > 15 ? 5 : 1;
+  items.forEach((it, i) => {
+    const h = Math.max(3, it.v / max * ih);
+    const x = pL + i*slot + (slot-bw)/2, y = pT + ih - h;
+    bars += `<rect class="b${i === items.length-1 ? ' today' : ''}" data-i="${i}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="${Math.min(5, bw/2).toFixed(1)}"/>`;
+    if (i % lstep === 0) labels += `<text class="gt" x="${(pL + i*slot + slot/2).toFixed(1)}" y="${H-8}" text-anchor="middle">${shortDate(it.ts)}</text>`;
+  });
+  root.innerHTML = `
+    <div class="card-head">
+      <div>
+        <h3>Витрати за останні ${days} днів</h3>
+        <p class="card-sub"><b>${fmtMoney(total, {dec:0})}</b> за період · у середньому ${fmtMoney(avg, {dec:0})} / день</p>
+      </div>
+      <div class="seg">
+        <button type="button" data-d="30" class="${days===30?'on':''}">30 днів</button>
+        <button type="button" data-d="7" class="${days===7?'on':''}">7 днів</button>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 ${W} ${H}">${grid}${bars}${labels}</svg>
+      <div class="chart-tip"></div>
+      <div class="chart-legend"><span><em class="lg-s"></em>Витрати за день</span><span><em class="lg-m"></em>Сьогодні</span></div>
+    </div>`;
+  const svg = $('svg', root), tip = $('.chart-tip', root);
+  const rects = $$('.b', svg);
+  const heights = items.map(it => it.v / max * ih);
+  let cur = -1;
+  svg.addEventListener('mousemove', e => {
+    const r = svg.getBoundingClientRect();
+    const rel = (e.clientX - r.left) / r.width * W;
+    let i = Math.floor((rel - pL) / slot);
+    i = Math.max(0, Math.min(items.length - 1, i));
+    if (i !== cur) {
+      cur = i;
+      rects.forEach(x => x.classList.toggle('act', +x.dataset.i === i));
+      const d = new Date(items[i].ts);
+      tip.innerHTML = `<b>${fmtMoney(items[i].v)}</b><span>${d.getDate()} ${MG[d.getMonth()]}${i === items.length-1 ? ' · сьогодні' : ''}</span>`;
+      tip.style.left = ((pL + i*slot + slot/2) / W * r.width) + 'px';
+      tip.style.top = ((pT + ih - heights[i]) / H * r.height) + 'px';
+      tip.classList.add('show');
+    }
+  });
+  svg.addEventListener('mouseleave', () => {
+    cur = -1; tip.classList.remove('show');
+    rects.forEach(x => x.classList.remove('act'));
+  });
+  $$('.seg button', root).forEach(b => b.onclick = () => renderChartInto(root, +b.dataset.d));
+  rects.forEach((r2, i) => {
+    r2.style.transformOrigin = 'center bottom';
+    r2.style.transformBox = 'fill-box';
+    r2.style.transform = 'scaleY(0)';
+    r2.style.transition = `transform .5s ${i*14}ms cubic-bezier(.2,.7,.3,1)`;
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => rects.forEach(r2 => r2.style.transform = 'scaleY(1)')));
+}
+
+function countUp(el, to, dec, dur = 900){
+  const t0 = performance.now();
+  const f = t => {
+    const p = Math.min(1, (t - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmtMoney(to * e, { dec });
+    if (p < 1) requestAnimationFrame(f);
+  };
+  requestAnimationFrame(f);
+}
+function sparkline(){
+  const rnd = mulberry32(99);
+  let v = 116000;
+  const vals = [];
+  for (let i = 0; i < 16; i++){
+    v += 600 + rnd()*1800;
+    if (rnd() > .78) v -= 900 + rnd()*800;
+    vals.push(v);
+  }
+  vals.push(state.balance);
+  const mn = Math.min(...vals), mx = Math.max(...vals);
+  const w = 220, h = 44;
+  const pts = vals.map((val, i) => `${(i/(vals.length-1)*w).toFixed(1)},${(h-4-(val-mn)/(mx-mn)*(h-8)).toFixed(1)}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="#4C6A87" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>`;
+}
+
+/* ---------- Shared list markup ---------- */
+function txRow(t){
+  return `<div class="tx-row">
+    <span class="ic-chip ${t.tint}"><i data-lucide="${t.icon}"></i></span>
+    <div class="tx-info"><b>${esc(t.name)}</b><span>${esc(t.cat)} · ${t.method}</span></div>
+    <div class="tx-amt ${t.type}"><b>${t.type === 'income' ? '+' : '−'}${fmtMoney(t.amount)}</b><span>${relDay(t.ts)}</span></div>
+  </div>`;
+}
+const pageHead = (title, sub, actions = '') => `
+  <div class="page-head">
+    <div><h1>${title}</h1><p>${sub}</p></div>
+    <div class="ph-actions">${actions}</div>
+  </div>`;
+const addBtn = `<button class="btn btn-primary btn-sm" data-add><i data-lucide="plus"></i>Додати транзакцію</button>`;
+
+/* ---------- Tab: Огляд ---------- */
+function renderOverview(c){
+  const s = stats30();
+  c.innerHTML = `
+    ${pageHead(greetLine(), todayLabel(), addBtn)}
+    <div class="sum-grid">
+      <div class="card sum-card">
+        <div class="sum-top"><span class="ic-chip slate"><i data-lucide="wallet"></i></span><span class="sum-name">Загальний баланс</span></div>
+        <div class="sum-val" id="cuBal">0</div>
+        <span class="delta mintC"><i data-lucide="trending-up"></i>+2,4% за 30 днів</span>
+        ${sparkline()}
+      </div>
+      <div class="card sum-card linked" data-go="transactions" data-type="income">
+        <div class="sum-top"><span class="ic-chip mint"><i data-lucide="arrow-down-left"></i></span><span class="sum-name">Доходи</span></div>
+        <div class="sum-val mintC" id="cuInc">0</div>
+        <div class="sum-sub">За останні 30 днів</div>
+        <span class="delta mintC" style="margin-top:10px;display:inline-flex"><i data-lucide="trending-up"></i>+12,1%</span>
+      </div>
+      <div class="card sum-card linked" data-go="transactions" data-type="expense">
+        <div class="sum-top"><span class="ic-chip rose"><i data-lucide="arrow-up-right"></i></span><span class="sum-name">Витрати</span></div>
+        <div class="sum-val" id="cuExp">0</div>
+        <div class="sum-sub">За останні 30 днів</div>
+        <span class="delta" style="margin-top:10px;display:inline-flex;color:var(--ink-3)">${state.transactions.filter(t=>t.type==='expense').length} операцій</span>
+      </div>
+    </div>
+    <div class="card chart-card" id="chartCard"></div>
+    <div class="ov-grid">
+      <div class="card list-card">
+        <div class="lc-head">
+          <h3 style="font-size:16.5px;font-weight:800">Останні транзакції</h3>
+          <button class="link-more" data-go="transactions">Усі транзакції<i data-lucide="arrow-right"></i></button>
+        </div>
+        <div id="recentList">${txSorted().slice(0,6).map(txRow).join('')}</div>
+      </div>
+      <div class="aside-col">
+        <div class="card tip-card">
+          <span class="t-label"><i data-lucide="sparkles"></i>Фінансовий радник</span>
+          <p>${advisorTip()}</p>
+        </div>
+        <div class="card">
+          <div class="lc-head"><h3 style="font-size:15px;font-weight:800">Бюджети — огляд</h3><button class="link-more" data-go="budgets" style="font-size:12.5px">Усі<i data-lucide="arrow-right"></i></button></div>
+          ${computeBudgets().slice().sort((a,b)=>b.pct-a.pct).slice(0,3).map(b => `
+            <div class="mini-b-row">
+              <span>${esc(b.cat)}</span>
+              <div class="bar"><em class="${b.st}" style="width:${b.pct}%"></em></div>
+              <em>${b.pct}%</em>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  countUp($('#cuBal'), state.balance, 2);
+  countUp($('#cuInc'), s.inc, 0);
+  countUp($('#cuExp'), s.exp, 2);
+  renderChartInto($('#chartCard'), 30);
+  icons();
+}
+
+/* ---------- Tab: Транзакції ---------- */
+function renderTransactions(c){
+  const cats = [...new Set(state.transactions.map(t => t.cat))].sort((a,b)=>a.localeCompare(b,'uk'));
+  c.innerHTML = `
+    ${pageHead('Транзакції', 'Усі операції за останні 30 днів', addBtn)}
+    <div class="card">
+      <div class="tx-toolbar">
+        <label class="search"><i data-lucide="search"></i><input id="txSearch" placeholder="Пошук за назвою або категорією…" value="${esc(state.ui.txSearch)}"></label>
+        <div class="fchips" id="txChips">
+          <button class="fchip" data-t="all">Усі<em></em></button>
+          <button class="fchip" data-t="income">Доходи<em></em></button>
+          <button class="fchip" data-t="expense">Витрати<em></em></button>
+        </div>
+        <select id="txCat" class="select">
+          <option value="">Усі категорії</option>
+          ${cats.map(x => `<option ${state.ui.txCat===x?'selected':''}>${x}</option>`).join('')}
+        </select>
+      </div>
+      <div id="txList"></div>
+      <div class="tx-foot" id="txFoot"></div>
+    </div>`;
+  $('#txSearch', c).addEventListener('input', e => { state.ui.txSearch = e.target.value; updateTxList(); });
+  $('#txCat', c).addEventListener('change', e => { state.ui.txCat = e.target.value; updateTxList(); });
+  $$('#txChips .fchip', c).forEach(b => b.onclick = () => { state.ui.txType = b.dataset.t; updateTxList(); });
+  updateTxList();
+}
+function updateTxList(){
+  const q = state.ui.txSearch.trim().toLowerCase();
+  const all = txSorted();
+  const list = all.filter(t =>
+    (state.ui.txType === 'all' || t.type === state.ui.txType) &&
+    (!state.ui.txCat || t.cat === state.ui.txCat) &&
+    (!q || t.name.toLowerCase().includes(q) || t.cat.toLowerCase().includes(q))
+  );
+  $$('#txChips .fchip').forEach(b => {
+    const t = b.dataset.t;
+    b.classList.toggle('on', state.ui.txType === t);
+    $('em', b).textContent = t === 'all' ? all.length : all.filter(x => x.type === t).length;
+  });
+  const box = $('#txList');
+  if (!list.length) {
+    box.innerHTML = `<div class="empty"><i data-lucide="inbox"></i><b>Нічого не знайдено</b>Спробуйте змінити фільтри або пошуковий запит</div>`;
+  } else {
+    let html = '', last = '';
+    list.forEach(t => {
+      const rd = relDay(t.ts);
+      if (rd !== last) { html += `<div class="tx-day">${rd}</div>`; last = rd; }
+      html += txRow(t);
+    });
+    box.innerHTML = html;
+  }
+  $('#txFoot').textContent = `Показано ${list.length} із ${all.length} операцій`;
+  icons();
+}
+
+/* ---------- Tab: Бюджети ---------- */
+function renderBudgets(c){
+  const bs = computeBudgets();
+  const tot = bs.reduce((s,b) => ({ spent: s.spent + b.spent, limit: s.limit + b.limit }), { spent:0, limit:0 });
+  const pct = Math.round(tot.spent / tot.limit * 100);
+  const st = pct > 90 ? 'rose' : pct >= 70 ? 'amber' : 'mint';
+  c.innerHTML = `
+    ${pageHead('Бюджети', 'Ліміти на місяць · витрати за останні 30 днів', addBtn)}
+    <div class="card">
+      <div class="b-total-row">
+        <div>
+          <div class="lbl">Разом витрачено за період</div>
+          <div class="big">${fmtMoney(tot.spent, {dec:0})} <span>з ${fmtMoney(tot.limit, {dec:0})}</span></div>
+        </div>
+        <span class="remain-pill">Залишок: ${fmtMoney(tot.limit - tot.spent, {dec:0})}</span>
+      </div>
+      <div class="bar lg"><em class="${st}" data-w="${pct}" style="width:0"></em></div>
+    </div>
+    <div class="b-grid">
+      ${bs.map(b => {
+        const over = b.spent > b.limit;
+        const status = over ? `Перевищено на ${fmtMoney(b.spent - b.limit, {dec:0})}` : `Залишок ${fmtMoney(b.limit - b.spent, {dec:0})}`;
+        return `
+        <div class="card b-card">
+          <div class="b-head">
+            <span class="ic-chip ${b.st}"><i data-lucide="${b.icon}"></i></span>
+            <div><b>${esc(b.cat)}</b><span>${fmtMoney(b.spent, {dec:0})} з ${fmtMoney(b.limit, {dec:0})}</span></div>
+            <button class="icon-btn" data-edit="${esc(b.cat)}" title="Змінити ліміт"><i data-lucide="pencil"></i></button>
+          </div>
+          <div class="bar"><em class="${b.st}" data-w="${b.pct}" style="width:0"></em></div>
+          <div class="b-foot"><span class="st ${b.st}">${status}</span><em>${b.pct}%</em></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="card tip-card" style="margin-top:18px">
+      <span class="t-label"><i data-lucide="sparkles"></i>Порада</span>
+      <p>Правило 50/30/20 — простий старт: 50% доходу на потреби, 30% на бажання, 20% на заощадження та цілі. ФінЛад допоможе тримати цей баланс автоматично.</p>
+    </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $$('.bar em[data-w]', c).forEach(em => em.style.width = em.dataset.w + '%');
+  }));
+  icons();
+}
+function openBudgetLimit(cat){
+  const b = state.budgets.find(x => x.cat === cat);
+  if (!b) return;
+  openModal(`
+    <div class="m-head"><h3>Ліміт — «${esc(cat)}»</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <p class="m-text" style="margin-bottom:16px">Поточний ліміт: <b>${fmtMoney(b.limit, {dec:0})}</b> на місяць.</p>
+    <div class="field"><label>Новий місячний ліміт</label><div class="in-wrap"><input id="blVal" type="number" min="100" step="50" value="${b.limit}"><span class="suffix">${RATES[state.currency].s}</span></div></div>
+    <button class="btn btn-primary w-full" id="blSave">Зберегти ліміт</button>
+  `, m => {
+    $('#blSave', m).onclick = () => {
+      const v = parseFloat($('#blVal', m).value);
+      if (!v || v <= 0) { toast('Вкажіть коректний ліміт', 'warn'); return; }
+      b.limit = v;
+      closeModal();
+      toast(`Ліміт «${esc(cat)}» оновлено: ${fmtMoney(v, {dec:0})}`);
+      if (state.ui.tab === 'budgets') renderTab('budgets');
+    };
+  });
+}
+
+/* ---------- Tab: Цілі ---------- */
+const RING_C = 2 * Math.PI * 52;
+function renderGoals(c){
+  c.innerHTML = `
+    ${pageHead('Цілі', 'Відкладайте на важливе та бачьте прогрес кожного тижня',
+      `<button class="btn btn-primary btn-sm" data-newgoal><i data-lucide="plus"></i>Нова ціль</button>`)}
+    <div class="g-grid">
+      ${state.goals.map(g => {
+        const pct = Math.min(100, Math.round(g.saved / g.target * 100));
+        const done = g.saved >= g.target;
+        return `
+        <div class="card g-card">
+          <div class="g-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="tr" cx="60" cy="60" r="52"/>
+              <circle class="pr" cx="60" cy="60" r="52" stroke-dasharray="${RING_C.toFixed(1)}" data-off="${(RING_C * (1 - pct/100)).toFixed(1)}" stroke-dashoffset="${RING_C.toFixed(1)}"/>
+            </svg>
+            <div class="g-pct"><b>${pct}%</b><span>прогрес</span></div>
+          </div>
+          <div class="g-info">
+            <b>${esc(g.name)}</b>
+            <div class="g-amount"><b>${fmtMoney(g.saved, {dec:0})}</b> з ${fmtMoney(g.target, {dec:0})}</div>
+            ${done ? `<span class="g-done-chip"><i data-lucide="check-circle"></i>Ціль досягнуто</span>` : ''}
+            <div class="g-meta">
+              <span><i data-lucide="calendar"></i>${g.deadline === 'постійна' ? 'без дедлайну' : 'до ' + g.deadline}</span>
+              <span><i data-lucide="repeat"></i>${fmtMoney(g.monthly, {dec:0})}/міс</span>
+            </div>
+            <button class="btn btn-primary btn-sm" data-fund="${g.id}" ${done ? 'disabled' : ''}>
+              <i data-lucide="${done ? 'check' : 'plus'}"></i>${done ? 'Завершено' : 'Поповнити'}
+            </button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $$('.pr[data-off]', c).forEach(r => r.style.strokeDashoffset = r.dataset.off);
+  }));
+  icons();
+}
+function openContribute(id){
+  const g = state.goals.find(x => x.id === id);
+  if (!g) return;
+  openModal(`
+    <div class="m-head"><h3>Поповнити «${esc(g.name)}»</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <p class="m-text" style="margin-bottom:16px">Зараз відкладено <b>${fmtMoney(g.saved, {dec:0})}</b> з ${fmtMoney(g.target, {dec:0})} (${Math.round(g.saved/g.target*100)}%).</p>
+    <div class="quick-row">
+      <button type="button" data-q="500">+500</button>
+      <button type="button" data-q="1000">+1 000</button>
+      <button type="button" data-q="2500">+2 500</button>
+    </div>
+    <div class="field"><label>Сума внеску</label><div class="in-wrap"><input id="gcVal" type="number" min="1" step="50" placeholder="Напр., 1000"><span class="suffix">${RATES[state.currency].s}</span></div></div>
+    <button class="btn btn-primary w-full" id="gcSave">Зарахувати внесок</button>
+  `, m => {
+    $$('.quick-row button', m).forEach(b => b.onclick = () => $('#gcVal', m).value = b.dataset.q);
+    $('#gcSave', m).onclick = () => {
+      const v = parseFloat($('#gcVal', m).value);
+      if (!v || v <= 0) { toast('Вкажіть суму внеску', 'warn'); return; }
+      g.saved = Math.min(g.target, g.saved + v);
+      closeModal();
+      toast(`Внесок ${fmtMoney(v, {dec:0})} зараховано на «${esc(g.name)}»`);
+      if (g.saved >= g.target) setTimeout(() => toast(`Ціль «${esc(g.name)}» досягнуто. Вітаємо!`), 700);
+      if (state.ui.tab === 'goals') renderTab('goals');
+    };
+  });
+}
+function openNewGoal(){
+  openModal(`
+    <div class="m-head"><h3>Нова фінансова ціль</h3><button class="icon-btn" data-close><i data-lucide="x"></i></button></div>
+    <div class="field" id="f-gn"><label>Назва цілі</label><input id="gnName" placeholder="Напр., Ремонт кухні"><span class="err"></span></div>
+    <div class="field" id="f-gt"><label>Необхідна сума</label><div class="in-wrap"><input id="gnTarget" type="number" min="100" step="100" placeholder="Напр., 30000"><span class="suffix">${RATES[state.currency].s}</span></div><span class="err"></span></div>
+    <div class="field"><label>Дедлайн (необов’язково)</label><input id="gnDl" placeholder="Напр., 1 червня"></div>
+    <button class="btn btn-primary w-full" id="gnSave">Створити ціль</button>
+  `, m => {
+    $('#gnSave', m).onclick = () => {
+      let ok = true;
+      $('#f-gn', m).classList.remove('bad'); $('#f-gt', m).classList.remove('bad');
+      const name = $('#gnName', m).value.trim();
+      const target = parseFloat($('#gnTarget', m).value);
+      if (name.length < 2) { $('#f-gn', m).classList.add('bad'); $('.err', $('#f-gn', m)).textContent = 'Вкажіть назву цілі'; ok = false; }
+      if (!target || target < 100) { $('#f-gt', m).classList.add('bad'); $('.err', $('#f-gt', m)).textContent = 'Мінімальна сума — 100'; ok = false; }
+      if (!ok) return;
+      state.goals.push({
+        id: uid(), name, target, saved: 0,
+        monthly: Math.max(100, Math.round(target / 6 / 100) * 100),
+        deadline: $('#gnDl', m).value.trim() || 'постійна'
+      });
+      closeModal();
+      toast(`Ціль «${esc(name)}» створено`);
+      if (state.ui.tab === 'goals') renderTab('goals');
+    };
+  });
+}
+
+/* ---------- Tab: Налаштування ---------- */
+function renderSettings(c){
+  const u = state.user;
+  c.innerHTML = `
+    ${pageHead('Налаштування', 'Керуйте профілем, безпекою та виглядом застосунку')}
+    <div class="set-wrap">
+      <div class="card set-card">
+        <h3>Профіль</h3><p class="sc-sub">Ваше ім’я видно лише вам та службі підтримки.</p>
+        <div class="set-grid2">
+          <div class="field"><label>Ім’я та прізвище</label><input id="setName" value="${esc(u.name)}"></div>
+          <div class="field"><label>Email</label><input id="setEmail" value="${esc(u.email)}"></div>
+        </div>
+        <button class="btn btn-primary btn-sm" id="saveProfile"><i data-lucide="check"></i>Зберегти зміни</button>
+      </div>
+      <div class="card set-card">
+        <h3>Валюта відображення</h3><p class="sc-sub">Суми в застосунку буде перераховано за фіксованим демо-курсом.</p>
+        <select id="setCur" class="select" style="min-width:260px">
+          <option value="UAH">₴ Українська гривня (UAH)</option>
+          <option value="USD">$ Долар США (USD)</option>
+          <option value="EUR">€ Євро (EUR)</option>
+        </select>
+      </div>
+      <div class="card set-card">
+        <h3>Безпека</h3><p class="sc-sub">Захист акаунта та активні сеанси.</p>
+        <div class="set-row">
+          <div><b>Двофакторна автентифікація</b><span>Код підтвердження при кожному вході</span></div>
+          <label class="switch"><input type="checkbox" id="sw2fa" ${state.settings.twofa?'checked':''}><em></em></label>
+        </div>
+        <div class="sess-row"><span class="ic-chip slate"><i data-lucide="monitor"></i></span><div><b>Chrome · Київ</b><span>Це пристрій · зараз активний</span></div></div>
+        <div class="sess-row"><span class="ic-chip mint"><i data-lucide="smartphone"></i></span><div><b>ФінЛад iOS · Київ</b><span>2 години тому</span></div></div>
+        <div class="sess-row"><span class="ic-chip amber"><i data-lucide="globe"></i></span><div><b>Firefox · Львів</b><span>3 дні тому</span></div></div>
+        <button class="btn btn-ghost btn-sm" id="endSessions" style="margin-top:14px"><i data-lucide="log-out"></i>Завершити інші сеанси</button>
+      </div>
+      <div class="card set-card">
+        <h3>Сповіщення</h3><p class="sc-sub">Оберіть, про що повідомляти.</p>
+        <div class="set-row">
+          <div><b>Push-повідомлення</b><span>Миттєві сповіщення про кожну операцію</span></div>
+          <label class="switch"><input type="checkbox" id="swPush" ${state.settings.push?'checked':''}><em></em></label>
+        </div>
+        <div class="set-row">
+          <div><b>Email-дайджест</b><span>Щотижневий звіт про витрати та цілі</span></div>
+          <label class="switch"><input type="checkbox" id="swMail" ${state.settings.emailNotif?'checked':''}><em></em></label>
+        </div>
+      </div>
+      <div class="card set-card danger-card">
+        <h3>Небезпечна зона</h3>
+        <p style="margin-top:8px">Видалення акаунта необоротне: усі транзакції, бюджети та цілі буде вилучено назавжди.</p>
+        <button class="btn btn-danger-outline btn-sm" id="delAcc"><i data-lucide="x-circle"></i>Видалити акаунт</button>
+      </div>
+    </div>`;
+  $('#setCur', c).value = state.currency;
+  $('#setCur', c).addEventListener('change', e => {
+    state.currency = e.target.value;
+    renderTab('settings');
+    toast(`Валюту відображення змінено на ${state.currency}`, 'info');
+  });
+  $('#saveProfile', c).onclick = () => {
+    const n = $('#setName', c).value.trim();
+    const em = $('#setEmail', c).value.trim();
+    if (n.length < 2) { toast('Ім’я занадто коротке', 'warn'); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { toast('Введіть коректний email', 'warn'); return; }
+    state.user.name = n; state.user.email = em;
+    saveSession();
+    updateIdentity();
+    toast('Зміни профілю збережено');
+  };
+  $('#sw2fa', c).addEventListener('change', e => {
+    state.settings.twofa = e.target.checked;
+    toast(e.target.checked ? 'Двофакторну автентифікацію увімкнено' : 'Двофакторну автентифікацію вимкнено', 'info');
+  });
+  $('#swPush', c).addEventListener('change', e => { state.settings.push = e.target.checked; toast('Налаштування сповіщень оновлено', 'info'); });
+  $('#swMail', c).addEventListener('change', e => { state.settings.emailNotif = e.target.checked; toast('Налаштування сповіщень оновлено', 'info'); });
+  $('#endSessions', c).onclick = () => toast('Усі інші сеанси завершено', 'info');
+  $('#delAcc', c).onclick = () => openConfirm({
+    title: 'Видалити акаунт?',
+    text: 'Усі дані, бюджети та цілі буде вилучено назавжди. Цю дію неможливо скасувати.',
+    ok: 'Так, видалити', danger: true,
+    onOk(){
+      state.auth = null; saveSession();
+      toast('Акаунт видалено. Дякуємо, що пробували ФінЛад', 'info');
+      location.hash = '#home';
+    }
+  });
+  icons();
+}
+
+/* ---------- Routing & identity ---------- */
+const renderers = { overview: renderOverview, transactions: renderTransactions, budgets: renderBudgets, goals: renderGoals, settings: renderSettings };
+function renderTab(tab){
+  state.ui.tab = tab;
+  const c = $('#appContent');
+  c.classList.remove('enter'); void c.offsetWidth; c.classList.add('enter');
+  renderers[tab](c);
+  $$('#sidebar .nav-item, #bottomNav button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+}
+function setTab(tab){
+  if (location.hash === '#app/' + tab) route();
+  else location.hash = '#app/' + tab;
+}
+function updateIdentity(){
+  const ini = state.user.name.trim().split(/\s+/).map(w => w[0]).slice(0,2).join('').toUpperCase();
+  $('#sideName').textContent = state.user.name;
+  $('#sideAva').textContent = ini;
+  $('#avaBtn').textContent = ini;
+  const sp = $('#sidePlan');
+  sp.textContent = state.auth === 'demo' ? 'Демо-профіль' : 'Premium профіль';
+  sp.classList.toggle('demo', state.auth === 'demo');
+}
+function route(){
+  closeAllModals();
+  const h = location.hash || '#home';
+  if (h.startsWith('#app')) {
+    document.body.classList.add('in-app');
+    $('#viewLanding').hidden = true;
+    $('#viewApp').hidden = false;
+    const tab = h.split('/')[1] || state.ui.tab || 'overview';
+    renderTab(tab);
+    if (!state.auth && !gateShown) { gateShown = true; openAuth('login'); }
+    window.scrollTo(0, 0);
+  } else {
+    gateShown = false;
+    document.body.classList.remove('in-app');
+    $('#viewApp').hidden = true;
+    $('#viewLanding').hidden = false;
+    const id = h.slice(1);
+    if (id && id !== 'home') {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 40);
+    } else {
+      window.scrollTo(0, 0);
+    }
+    spy();
+  }
+}
+window.addEventListener('hashchange', route);
+
+/* ---------- Landing wiring ---------- */
+const header = $('#siteHeader');
+function spy(){
+  if (document.body.classList.contains('in-app')) return;
+  let cur = 'hero';
+  ['hero','features','pricing','security'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 150) cur = id;
+  });
+  $$('.head-nav .nav-link').forEach(a => a.classList.toggle('active', a.dataset.sec === cur));
+}
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 8);
+  spy();
+}, { passive:true });
+
+ $$('a[href="#features"], a[href="#pricing"], a[href="#security"], a[href="#home"]').forEach(a => {
+  a.addEventListener('click', () => { if (location.hash === a.getAttribute('href')) route(); });
+});
+
+const io = new IntersectionObserver(es => es.forEach(x => {
+  if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); }
+}), { threshold:.12 });
+ $$('.reveal').forEach(el => io.observe(el));
+
+const heroSec = $('#hero'), scene = $('#isoScene');
+heroSec.addEventListener('pointermove', e => {
+  if (matchMedia('(pointer:coarse)').matches || !scene) return;
+  const r = heroSec.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - .5;
+  const y = (e.clientY - r.top) / r.height - .5;
+  scene.style.transform = `rotateX(${52 + y * -7}deg) rotateZ(${-40 + x * 9}deg)`;
+});
+heroSec.addEventListener('pointerleave', () => { if (scene) scene.style.transform = ''; });
+
+const PRICES = { plus:{ m:189, y:151 }, fam:{ m:349, y:279 } };
+ $$('#billToggle button').forEach(b => b.onclick = () => {
+  $$('#billToggle button').forEach(x => x.classList.toggle('on', x === b));
+  const y = b.dataset.b === 'y';
+  $('#pnPlus').textContent = (y ? PRICES.plus.y : PRICES.plus.m) + ' ₴';
+  $('#pnFam').textContent = (y ? PRICES.fam.y : PRICES.fam.m) + ' ₴';
+  $('#pnotePlus').textContent = y ? `при оплаті за рік — ${PRICES.plus.y * 12} ₴` : 'при оплаті помісячно';
+  $('#pnoteFam').textContent = y ? `при оплаті за рік — ${PRICES.fam.y * 12} ₴` : 'при оплаті помісячно';
+});
+
+const burger = $('#burger'), mMenu = $('#mobileMenu');
+burger.onclick = () => {
+  const open = mMenu.classList.toggle('open');
+  burger.innerHTML = `<i data-lucide="${open ? 'x' : 'menu'}"></i>`;
+  icons();
+};
+mMenu.addEventListener('click', e => {
+  if (e.target.closest('a, button')) { mMenu.classList.remove('open'); burger.innerHTML = '<i data-lucide="menu"></i>'; icons(); }
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 920 && mMenu.classList.contains('open')) { mMenu.classList.remove('open'); burger.innerHTML = '<i data-lucide="menu"></i>'; icons(); }
+});
+
+/* ---------- Global delegated clicks ---------- */
+document.addEventListener('click', e => {
+  const start = e.target.closest('.js-start');
+  if (start) { e.preventDefault(); closeAllModals(); openAuth('reg'); return; }
+  const log = e.target.closest('.js-login');
+  if (log) { e.preventDefault(); closeAllModals(); openAuth('login'); return; }
+  const demo = e.target.closest('.js-demo');
+  if (demo) { e.preventDefault(); enterDemo(); return; }
+  const legal = e.target.closest('[data-legal]');
+  if (legal) { e.preventDefault(); const l = LEGAL[legal.dataset.legal]; if (l) infoModal(l.t, l.h); return; }
+  const info = e.target.closest('[data-info]');
+  if (info) { const d = INFO[info.dataset.info]; if (d) infoModal(d.t, d.h); return; }
+  const soc = e.target.closest('[data-soc]');
+  if (soc) { e.preventDefault(); toast('У демо-версії соцмережі не підключено', 'info'); return; }
+  const add = e.target.closest('[data-add]');
+  if (add) { openAddTx(); return; }
+  const go = e.target.closest('[data-go]');
+  if (go) {
+    if (go.dataset.type) { state.ui.txType = go.dataset.type; state.ui.txSearch = ''; state.ui.txCat = ''; }
+    else { state.ui.txType = 'all'; }
+    setTab(go.dataset.go); return;
+  }
+  const fund = e.target.closest('[data-fund]');
+  if (fund) { openContribute(fund.dataset.fund); return; }
+  const ng = e.target.closest('[data-newgoal]');
+  if (ng) { openNewGoal(); return; }
+  const ed = e.target.closest('[data-edit]');
+  if (ed) { openBudgetLimit(ed.dataset.edit); return; }
+  if (!e.target.closest('.bell-wrap')) $('#bellPanel').classList.remove('open');
+});
+
+/* ---------- App shell wiring ---------- */
+ $$('#sidebar .nav-item, #bottomNav button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
+ $('#addTop').onclick = openAddTx;
+ $('#avaBtn').onclick = () => setTab('settings');
+ $('#logoutBtn').onclick = () => {
+  state.auth = null;
+  saveSession();
+  toast('Ви вийшли з акаунта', 'info');
+  location.hash = '#home';
+};
+ $('#bellBtn').onclick = () => $('#bellPanel').classList.toggle('open');
+ $('#markRead').onclick = () => { $('#bellDot').style.display = 'none'; toast('Сповіщення позначено прочитаними', 'info'); };
+ $('#topSearch').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  state.ui.txSearch = e.target.value.trim();
+  state.ui.txType = 'all'; state.ui.txCat = '';
+  setTab('transactions');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    $('#bellPanel').classList.remove('open');
+    if (mMenu.classList.contains('open')) burger.click();
+  }
+});
+
+/* ---------- Init ---------- */
+loadSession();
+ $('#txBadge').textContent = state.transactions.length;
+updateIdentity();
+route();
+spy();
+icons();
+</script>
+</body>
+</html>
